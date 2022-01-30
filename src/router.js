@@ -13,6 +13,8 @@ import CreateSurvey from './resources/views/admin/surveys/CreateSurvey.vue'
 import UsersIndex from './resources/views/admin/users/UserIndex.vue'
 import UsersCreate from './resources/views/admin/users/UserCreate.vue'
 
+import UserDashboard from './resources/views/users/UserDashboard.vue'
+
 // Login
 const routes = [
   {
@@ -39,6 +41,11 @@ const routes = [
     name: 'CreateSurvey',
     component: CreateSurvey,
   },
+  {
+    path: '/survey/edit/:id',
+    name: 'EditSurvey',
+    component: CreateSurvey,
+  },
 
   {
     path: '/users',
@@ -50,13 +57,18 @@ const routes = [
     name: 'usersCreate',
     component: UsersCreate,
   },
+  {
+    path: '/users/edit/:id',
+    name: 'usersEdit',
+    component: UsersCreate,
+  },
 
   // Users Section
-  // {
-  //   path: '/user-dashboard',
-  //   name: 'user dashboard',
-  //   component: User,
-  // },
+  {
+    path: '/user-dashboard',
+    name: 'userDashboard',
+    component: UserDashboard,
+  },
 
   // // User attempt surveys
   // {

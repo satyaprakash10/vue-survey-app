@@ -18,18 +18,9 @@
       </h2>
     </div>
 
-    <div class="mx-auto text-center">
-      <router-link
-        to="/admin-dashboard"
-        class="flex justify-center w-full px-4 py-2 mt-4 text-center border border-indigo-500 rounded-md hover:bg-indigo-500 hover:bg-opacity-30"
-      >
-        Dashboard
-      </router-link>
-    </div>
-
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-6" action="" @submit.prevent="submitLoginData">
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">
               Email address
@@ -77,17 +68,38 @@
   </div>
 </template>
 
-<script>
+<script setup type="text/babel">
 import { reactive } from 'vue'
-export default {
-  setup() {
-    let loginData = reactive({
-      email: '',
-      password: '',
-    })
-    return {
-      loginData,
+import { useAuthStore } from '../../stores/auth'
+import { useNotificationStore } from '../../stores/notification'
+import { useRouter } from 'vue-router'
+import Ls from '../../services/ls'
+
+const router = useRouter()
+
+let loginData = reactive({
+  email: '',
+  password: '',
+})
+
+const notificationStore = useNotificationStore()
+const authStore = useAuthStore()
+
+function submitLoginData() {
+  try {
+    if (loginData.email === 'admin@gmail.com') {
+      router.push('/dashboard')
+      Ls.set('isAdmin', JSON.stringify(true))
+    } else {
+      router.push('/user-dashboard')
+      Ls.set('isUser', JSON.stringify(true))
     }
-  },
+    notificationStore.showNotification({
+      type: 'success',
+      message: 'Logged in successfully.',
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 </script>

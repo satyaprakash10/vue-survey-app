@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import Ls from '../../../services/ls'
 
 export const useUserStore = defineStore({
   id: 'users',
@@ -6,10 +7,15 @@ export const useUserStore = defineStore({
   state: () => ({
     currentUser: null,
     roles: [],
-    users: [],
-    totalUsers: 0,
-    currentUser: null,
-    selectedUsers: [],
+    users: [
+      {
+        id: '1',
+        email: 'admin@gmail.com',
+        password: 'admin',
+        role: 'admin',
+      },
+    ],
+
     userData: {
       id: '',
       email: '',
@@ -19,7 +25,7 @@ export const useUserStore = defineStore({
   }),
 
   getters: {
-    getUsers: (state) => state.users,
+    getUser: (state) => state.userData,
   },
 
   actions: {
@@ -33,101 +39,28 @@ export const useUserStore = defineStore({
     },
 
     fetchAllUsers() {
-      return new Promise((resolve, reject) => {
-        'allUsers'
-      })
+      this.users = JSON.parse(Ls.get('users'))
     },
-
-    // fetchUsers() {
-    //   //   console.log('fetch user =>', )
-    //   return new Promise((resolve, reject) => {
-    //     this.users = response.data
-    //     this.totalUsers = response.data.meta.total
-    //     resolve(response).catch((err) => {
-    //       reject(err)
-    //     })
-    //   })
-    // },
 
     fetchUser(id) {
-      return new Promise((resolve, reject) => {
-        this.userData = response.data
-        resolve(response).catch((err) => {
-          reject(err)
-        })
-      })
-    },
-
-    fetchRoles() {
-      return new Promise((resolve, reject) => {
-        this.roles = response.data
-        resolve(response).catch((err) => {
-          reject(err)
-        })
-      })
+      const user = this.users.find((user) => user.id === id)
+      this.userData = user
     },
 
     addUser(data) {
-      return new Promise((resolve, reject) => {
-        this.users.push(data)
-
-        // resolve(response).catch((err) => {
-        //   reject(err)
-        // })
-      })
+      this.users.push(data)
+      Ls.set('users', JSON.stringify(this.users))
     },
 
     updateUser(data) {
-      return new Promise((resolve, reject) => {
-        if (data) {
-          let pos = this.users.findIndex(
-            (user) => user.id === response.data.data.id
-          )
-          this.users[pos] = response.data.data
-        }
-        resolve(response).catch((err) => {
-          reject(err)
-        })
-      })
+      let pos = this.users.findIndex((user) => user.id === data.id)
+      this.users[pos] = data
+      Ls.set('users', JSON.stringify(this.users))
     },
 
     deleteUser(id) {
-      return new Promise((resolve, reject) => {
-        let index = this.users.findIndex((user) => user.id === id)
-        this.users.splice(index, 1)
-
-        resolve(response).catch((err) => {
-          reject(err)
-        })
-      })
-    },
-
-    deleteMultipleUsers() {
-      return new Promise((resolve, reject) => {
-        this.selectedUsers.forEach((user) => {
-          let index = this.users.findIndex((_user) => _user.id === user.id)
-          this.users.splice(index, 1)
-          resolve(response).catch((err) => {
-            reject(err)
-          })
-        })
-      })
-    },
-  },
-
-  mutations: {
-    addUser(state, data) {
-      if (data) {
-        state.users.push(data)
-        if (state.users) {
-          window.localStorage.setItem('users', JSON.stringify(state.users))
-        }
-      }
-    },
-
-    allUsers(state) {
-      const allUser = window.localStorage.getItem('users')
-      state.users = JSON.parse(allUser)
+      let index = this.users.findIndex((user) => user.id === id)
+      this.users.splice(index, 1)
     },
   },
 })

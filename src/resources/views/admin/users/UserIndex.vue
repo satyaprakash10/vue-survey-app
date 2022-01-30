@@ -84,9 +84,9 @@
                   <th scope="col" class="relative px-6 py-3">Action</th>
                 </tr>
               </thead>
-              <tbody v-if="getUsers">
+              <tbody v-if="userStore.users">
                 <tr
-                  v-for="(user, personIdx) in getUsers"
+                  v-for="(user, personIdx) in userStore.users"
                   :key="personIdx"
                   :class="personIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
                 >
@@ -104,13 +104,16 @@
 
                   <td
                     class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
+                    @click="removeUser(user.id)"
                   >
                     <TrashIcon class="w-5 h-5 mr-3" />
                   </td>
                   <td
                     class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
                   >
-                    <PencilIcon class="w-5 h-5 mr-3" />
+                    <router-link :to="`/users/edit/${user.id}`">
+                      <PencilIcon class="w-5 h-5 mr-3" />
+                    </router-link>
                   </td>
                 </tr>
               </tbody>
@@ -127,8 +130,11 @@ import { HomeIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
 import { ref, reactive } from 'vue'
 import { useUserStore } from '../../../../resources/scripts/stores/user'
 
-const people = []
 const userStore = useUserStore()
 
-let getUsers = userStore.fetchAllUsers()
+userStore.fetchAllUsers()
+
+function removeUser(id) {
+  userStore.deleteUser(id)
+}
 </script>

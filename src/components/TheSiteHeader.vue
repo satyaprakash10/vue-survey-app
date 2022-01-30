@@ -181,7 +181,7 @@
   </Disclosure>
 </template>
 
-<script>
+<script setup>
 import {
   Disclosure,
   DisclosureButton,
@@ -192,33 +192,31 @@ import {
   MenuItems,
 } from '@headlessui/vue'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline'
-import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-export default {
-  components: {
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuItems,
-    BellIcon,
-    MenuIcon,
-    XIcon,
-  },
 
-  setup() {
-    let auth = ref(false)
-    const route = useRoute()
-    const router = useRouter()
-    function signOut() {
-      auth.value = true
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../../src/stores/auth'
+import { useNotificationStore } from '../stores/notification'
 
+const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
+
+const router = useRouter()
+
+function signOut() {
+  try {
+    if (authStore.isAdmin === true) {
+      authStore.adminLogout()
+      router.push('/')
+    } else {
+      authStore.userLogout()
       router.push('/')
     }
-
-    return { signOut }
-  },
+    notificationStore.showNotification({
+      type: 'success',
+      message: 'Logged out successfully.',
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 </script>

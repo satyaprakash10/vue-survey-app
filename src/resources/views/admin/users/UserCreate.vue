@@ -62,124 +62,142 @@
       </nav>
 
       <!-- survey form start -->
-      <div
-        class="px-6 py-5 mt-5 bg-white border-t-2 border-indigo-500 border-solid rounded-md shadow rounded-t-md"
-      >
-        <div class="sm:grid sm:grid-cols-2 sm:gap-6">
-          <div class="py-4 mt-2 sm:border-gray-200 sm:pt-4">
-            <label
-              for=""
-              class="block text-sm font-medium text-gray-700 sm:mt-px"
-            >
-              Id
-            </label>
-            <div class="mt-1 sm:mt-3 sm:col-span-2">
-              <input
-                type="text"
-                v-model="userStore.userData.id"
-                name="id"
-                id="id"
-                class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-
-          <div class="py-4">
-            <label
-              for=""
-              class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-            >
-              Email
-            </label>
-            <div class="mt-1 sm:mt-3 sm:col-span-2">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                v-model="userStore.userData.name"
-                class="block w-full max-w-xl px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-
-          <div class="py-4 sm:border-t sm:border-gray-200">
-            <label
-              for=""
-              class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-            >
-              Role
-            </label>
-            <div class="mt-1 sm:mt-3 sm:col-span-2">
-              <input
-                type="text"
-                name="role"
-                id="role"
-                v-model="userStore.userData.role"
-                class="block w-full max-w-xl px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-
-          <div class="py-4 sm:border-t sm:border-gray-200">
-            <label
-              for=""
-              class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-            >
-              Password
-            </label>
-            <div class="mt-1 sm:mt-3 sm:col-span-2">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                v-model="userStore.userData.password"
-                class="block w-full max-w-xl px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-        </div>
-
-        {{ userStore.userData }}
-
+      <form action="" @submit="submitUserData">
         <div
-          class="flex justify-center mx-auto mt-6 mb-6 sm:pt-12 sm:justify-start max-w-7xl"
+          class="px-6 py-5 mt-5 bg-white border-t-2 border-indigo-500 border-solid rounded-md shadow rounded-t-md"
         >
-          <button
-            @click="submitUserData"
-            class="flex justify-center w-full px-2 py-3 text-white bg-indigo-600 rounded-md shadow sm:w-40 hover:bg-blue-500 hover:bg-opacity-90"
+          <div class="sm:grid sm:grid-cols-2 sm:gap-6">
+            <div class="py-4 mt-2 sm:border-gray-200 sm:pt-4">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-700 sm:mt-px"
+              >
+                Id
+              </label>
+              <div class="mt-1 sm:mt-3 sm:col-span-2">
+                <input
+                  type="text"
+                  v-model="userStore.userData.id"
+                  name="id"
+                  id="id"
+                  class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="py-4">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+              >
+                Email
+              </label>
+              <div class="mt-1 sm:mt-3 sm:col-span-2">
+                <input
+                  v-model="userStore.userData.email"
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="block w-full max-w-xl px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="py-4 sm:border-t sm:border-gray-200">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+              >
+                Role
+              </label>
+              <div class="mt-1 sm:mt-3 sm:col-span-2">
+                <input
+                  v-model="userStore.userData.role"
+                  type="text"
+                  name="role"
+                  id="role"
+                  class="block w-full max-w-xl px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="py-4 sm:border-t sm:border-gray-200">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+              >
+                Password
+              </label>
+              <div class="mt-1 sm:mt-3 sm:col-span-2">
+                <input
+                  v-model="userStore.userData.password"
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="block w-full max-w-xl px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          {{ userStore.userData }}
+
+          <div
+            class="flex justify-center mx-auto mt-6 mb-6 sm:pt-12 sm:justify-start max-w-7xl"
           >
-            <SaveIcon class="w-6 h-6 mr-4" />
-            Save
-          </button>
+            <button
+              type="submit"
+              class="flex justify-center w-full px-2 py-3 text-white bg-indigo-600 rounded-md shadow sm:w-40 hover:bg-blue-500 hover:bg-opacity-90"
+            >
+              <SaveIcon class="w-6 h-6 mr-4" />
+              Save
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, watch, computed } from 'vue'
+import { ref, reactive, watch, computed, watchEffect } from 'vue'
 import { HomeIcon, PlusIcon, SaveIcon, TrashIcon } from '@heroicons/vue/solid'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '../../../../resources/scripts/stores/user'
+import { useNotificationStore } from '../../../../stores/notification'
 
 // local data variable declaration
 const userStore = useUserStore()
+const notificationStore = useNotificationStore()
+
 let isSaving = ref(false)
 let isEdit = ref(false)
 const route = useRoute()
 const router = useRouter()
 
 // watcher
-
-// computed
-// let isOptions = computed(() => {})
+watchEffect(() => {
+  if (route.params.id) {
+    userStore.fetchUser(route.params.id)
+  }
+})
 
 // methods
 function submitUserData() {
   isSaving.value = true
-  userStore.addUser(userStore.userData)
-  console.log('add user =>', userStore.userData)
+  if (route.params.id) {
+    userStore.updateUser(userStore.userData)
+    notificationStore.showNotification({
+      type: 'success',
+      message: 'user added successfully.',
+    })
+  } else {
+    userStore.addUser(userStore.userData)
+    notificationStore.showNotification({
+      type: 'success',
+      message: 'user added successfully.',
+    })
+  }
 
   isSaving.value = false
 
