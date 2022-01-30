@@ -2,7 +2,7 @@
   <div>
     <div class="px-6 py-4 mx-auto max-w-7xl">
       <!-- Breadcrumb -->
-      <h1 class="mb-6 text-lg font-bold sm:text-xl">Surveys</h1>
+      <h1 class="mb-6 text-lg font-bold sm:text-xl">Survey</h1>
 
       <nav class="flex" aria-label="Breadcrumb">
         <ol role="list" class="flex items-center space-x-4">
@@ -74,15 +74,7 @@
               >
                 Survey Id
               </label>
-              <div class="mt-1 sm:mt-3 sm:col-span-2">
-                <input
-                  type="text"
-                  v-model="survey_id"
-                  name="survey_id"
-                  id="survey_id"
-                  class="block w-full max-w-sm px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
+              <div class="mt-1 font-bold sm:mt-3 sm:col-span-2">00 1</div>
             </div>
 
             <div class="py-4">
@@ -92,14 +84,8 @@
               >
                 Survey Name
               </label>
-              <div class="mt-1 sm:mt-3 sm:col-span-2">
-                <input
-                  type="text"
-                  name="survey_id"
-                  id="survey_id"
-                  v-model="survey_name"
-                  class="block w-full max-w-xl px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-                />
+              <div class="mt-1 font-bold sm:mt-3 sm:col-span-2">
+                Vue Survey 1
               </div>
             </div>
           </div>
@@ -117,7 +103,7 @@
                   : index > 1
               "
             >
-              <div class="border-b-2 sm:grid sm:grid-cols-4">
+              <div class="border-b-2 sm:grid sm:grid-cols-3">
                 <h1
                   class="py-3 mt-3 text-sm font-semibold text-gray-500 sm:text-lg"
                 >
@@ -126,16 +112,9 @@
                     {{ index + 1 }}
                   </span>
                 </h1>
-                <div></div>
-                <div></div>
-                <TrashIcon
-                  @click="removeQuestions(id)"
-                  v-if="questions.length > 1"
-                  class="flex justify-end w-8 h-8 mx-auto mt-6 mb-3 mr-2 text-center text-gray-600 cursor-pointer hover:text-gray-900"
-                />
               </div>
 
-              <div class="sm:grid sm:gap-8 sm:grid-cols-2">
+              <div class="flex items-center space-x-12">
                 <div class="py-3 sm:border-gray-200">
                   <label
                     for="id"
@@ -143,15 +122,7 @@
                   >
                     Question Id
                   </label>
-                  <div class="mt-1 sm:mt-0">
-                    <input
-                      id="id"
-                      name="id"
-                      v-model="question.question_id"
-                      type="text"
-                      class="block w-full px-4 py-3 mt-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-                    />
-                  </div>
+                  <div class="mt-1 font-bold sm:mt-0">01</div>
                 </div>
                 <div class="py-3 sm:border-gray-200">
                   <label
@@ -160,113 +131,133 @@
                   >
                     Question Name
                   </label>
-                  <div class="mt-1 sm:mt-0">
-                    <input
-                      id="id"
-                      name="id"
-                      v-model="question.question_name"
-                      type="text"
-                      class="block w-full px-4 py-3 mt-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-                    />
-                  </div>
+                  <div class="mt-1 font-bold sm:mt-0">What is Vue Js?</div>
                 </div>
               </div>
 
               <!-- Survey Questions Options -->
-              <div class="">
-                <div
-                  class="sm:grid-cols-4 sm:grid sm:gap-6"
-                  v-for="(question, index) in question.options"
-                  :key="index"
+              <div class="flex items-center space-x-12">
+                <h1
+                  class="py-3 mt-3 text-sm font-bold text-gray-500 sm:text-lg"
                 >
-                  <h1
-                    class="py-3 mt-3 text-sm font-bold text-gray-500 sm:text-lg"
+                  Option A:
+                  <span class="text-sm font-semibold text-gray-900 sm:text-xl">
+                  </span>
+                </h1>
+
+                <div class="py-4 sm:border-gray-200">
+                  <label
+                    for=""
+                    class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                   >
-                    Option :
-                    <span
-                      class="text-sm font-semibold text-gray-900 sm:text-xl"
-                    >
-                      {{ index + 1 }}
-                    </span>
-                  </h1>
-
-                  <div class="py-4 sm:border-gray-200">
-                    <label
-                      for="email"
-                      class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                    >
-                      Option Id
-                    </label>
-                    <div class="mt-1 sm:mt-0">
-                      <input
-                        v-model="question.option_id"
-                        id=""
-                        name=""
-                        type="text"
-                        class="block w-full px-4 py-3 mt-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-                  <div class="py-4 sm:border-gray-200">
-                    <label
-                      for=""
-                      class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                    >
-                      Option Name
-                    </label>
-                    <div class="mt-1 sm:mt-0">
-                      <input
-                        v-model="question.option_text"
-                        id=""
-                        name=""
-                        type="text"
-                        class="block w-full px-4 py-3 mt-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:ring-none focus:outline-none focus:border-indigo-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <TrashIcon
-                    v-if="index > 0"
-                    @click="removeOption()"
-                    class="w-8 h-8 mx-auto mt-3 mb-3 mr-2 text-center text-gray-600 cursor-pointer sm:mt-16 hover:text-gray-900"
-                  />
+                    Option Name
+                  </label>
+                  <div class="mt-1 font-bold sm:mt-0">Framework</div>
                 </div>
 
-                <div class="">
-                  <button
-                    @click.prevent="addMoreOption(index)"
-                    class="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium text-gray-900 transition-all duration-500 ease-in-out border border-indigo-500 shadow hover:border-indigo-500 hover:border-2 focus:ring-indigo-500 rounded-b-md sm:justify-auto sm:text-sm hover:bg-gray-500 hover:bg-opacity-30"
+                <div>
+                  <input
+                    name="notification-method"
+                    type="radio"
+                    class="w-6 h-6 text-indigo-600 border-gray-300 cursor-pointer mt-9 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+              <div class="flex items-center space-x-12">
+                <h1
+                  class="py-3 mt-3 text-sm font-bold text-gray-500 sm:text-lg"
+                >
+                  Option B:
+                  <span class="text-sm font-semibold text-gray-900 sm:text-xl">
+                  </span>
+                </h1>
+
+                <div class="py-4 sm:border-gray-200">
+                  <label
+                    for=""
+                    class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                   >
-                    <PlusIcon class="w-6 h-6 mr-4" />
-                    Add More Option
-                  </button>
+                    Option Name
+                  </label>
+                  <div class="mt-1 font-bold sm:mt-0">Framework</div>
+                </div>
+
+                <div>
+                  <input
+                    name="notification-method"
+                    type="radio"
+                    class="w-6 h-6 text-indigo-600 border-gray-300 cursor-pointer mt-9 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+              <div class="flex items-center space-x-12">
+                <h1
+                  class="py-3 mt-3 text-sm font-bold text-gray-500 sm:text-lg"
+                >
+                  Option C
+                  <span class="text-sm font-semibold text-gray-900 sm:text-xl">
+                  </span>
+                </h1>
+
+                <div class="py-4 sm:border-gray-200">
+                  <label
+                    for=""
+                    class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
+                    Option Name
+                  </label>
+                  <div class="mt-1 font-bold sm:mt-0">Framework</div>
+                </div>
+
+                <div>
+                  <input
+                    name="notification-method"
+                    type="radio"
+                    class="w-6 h-6 text-indigo-600 border-gray-300 cursor-pointer mt-9 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-12">
+                <h1
+                  class="py-3 mt-3 text-sm font-bold text-gray-500 sm:text-lg"
+                >
+                  Option D :
+                  <span class="text-sm font-semibold text-gray-900 sm:text-xl">
+                  </span>
+                </h1>
+
+                <div class="py-4 sm:border-gray-200">
+                  <label
+                    for=""
+                    class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
+                    Option Name
+                  </label>
+                  <div class="mt-1 font-bold sm:mt-0">Framework</div>
+                </div>
+
+                <div>
+                  <input
+                    name="notification-method"
+                    type="radio"
+                    class="w-6 h-6 text-indigo-600 border-gray-300 cursor-pointer mt-9 focus:ring-indigo-500"
+                  />
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="hidden max-w-lg mt-6 sm:block">
-            {{ questions }}
-          </div>
-
-          <button
-            @click.prevent="addMoreQuestion()"
-            class="flex justify-center w-full px-4 py-3 text-gray-900 transition-all duration-500 bg-gray-100 rounded-b-lg hover:border-indigo-500 hover:border-2 hover:bg-gray-300 hover:focus:outline-indigo-500 hover:focus-ring-2"
-          >
-            <PlusIcon class="w-6 h-6 ml-2 mr-3" />
-            Add More Question
-          </button>
         </div>
 
         <div
           class="flex justify-center px-6 pt-16 mx-auto sm:justify-start max-w-7xl"
         >
           <button
-            @click.prevent="addSurveyData"
-            class="flex justify-center w-full px-2 py-3 text-white bg-indigo-600 rounded-md shadow sm:w-40 hover:bg-blue-500 hover:bg-opacity-90"
+            @click.prevent="submitSurvey"
+            class="flex justify-center w-full px-2 py-3 text-white bg-indigo-600 rounded-md shadow sm:max-w-xs hover:bg-blue-500 hover:bg-opacity-90"
           >
             <SaveIcon class="w-6 h-6 mr-4" />
-            Save
+            Submit Survey
           </button>
         </div>
       </div>
@@ -347,7 +338,7 @@ function removeQuestions(index) {
   questions.splice(index, 1)
 }
 
-function addSurveyData() {
+function submitSurvey() {
   if (validate.error) {
     return false
   }

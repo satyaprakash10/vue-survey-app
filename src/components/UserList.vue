@@ -7,7 +7,7 @@
       <li
         v-for="person in people"
         :key="person.email"
-        class="col-span-1 bg-white divide-y divide-gray-200 rounded-lg shadow cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+        class="col-span-1 bg-white divide-y divide-gray-200 rounded-lg shadow cursor-pointer hover:border-indigo-500 hover:border focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
       >
         <div class="flex items-center justify-between w-full p-6 space-x-6">
           <div class="flex-1 truncate">

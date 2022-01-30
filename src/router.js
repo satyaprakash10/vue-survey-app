@@ -5,9 +5,13 @@ import Login from './resources/views/Login.vue'
 
 // Admin
 import AdminDashboard from './resources/views/admin/AdminDashboard.vue'
-// import LayoutBasic from './'
 
 // Views Page
+import SurveyIndex from './resources/views/admin/surveys/SurveyIndex.vue'
+import CreateSurvey from './resources/views/admin/surveys/CreateSurvey.vue'
+
+import UsersIndex from './resources/views/admin/users/UserIndex.vue'
+import UsersCreate from './resources/views/admin/users/UserCreate.vue'
 
 // Login
 const routes = [
@@ -17,33 +21,44 @@ const routes = [
     component: Login,
   },
 
-  // Admin
+  // Admin section
   {
-    path: '/admin-dashboard',
+    path: '/dashboard',
     name: 'dashboard',
     component: AdminDashboard,
   },
 
-  // Admin Surveys
+  // Surveys
+  {
+    path: '/survey',
+    name: 'survey',
+    component: SurveyIndex,
+  },
+  {
+    path: '/survey/create',
+    name: 'CreateSurvey',
+    component: CreateSurvey,
+  },
+
+  {
+    path: '/users',
+    name: 'users',
+    component: UsersIndex,
+  },
+  {
+    path: '/users/create',
+    name: 'usersCreate',
+    component: UsersCreate,
+  },
+
+  // Users Section
   // {
-  //   path: 'dashboard',
-  //   name: 'dashboard',
-  //   component: AdminDashboard,
-  // },
-  // {
-  //   path: 'survey',
-  //   name: 'survey',
-  //   component: SurveyIndex,
+  //   path: '/user-dashboard',
+  //   name: 'user dashboard',
+  //   component: User,
   // },
 
-  // Users
-  // {
-  //   path: 'dashboard',
-  //   name: 'dashboard',
-  //   component: AdminDashboard,
-  // },
-
-  // user attempt surveys
+  // // User attempt surveys
   // {
   //   path: 'survey',
   //   name: 'survey',

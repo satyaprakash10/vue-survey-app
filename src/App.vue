@@ -4,7 +4,7 @@
     <TheSiteHeader :open="open" @toggle="open = !open" />
 
     <!-- Main -->
-    <div>
+    <div class="mt-12">
       <router-view />
     </div>
   </div>

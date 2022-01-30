@@ -4,7 +4,8 @@
       <!-- Breadcrumb -->
       <div class="flex items-center justify-between">
         <nav class="" aria-label="Breadcrumb">
-          <h1 class="mb-6 text-lg font-bold sm:text-xl">Surveys</h1>
+          <h1 class="mb-6 text-lg font-bold sm:text-xl">Users</h1>
+
           <ol role="list" class="flex items-center space-x-4">
             <li>
               <div>
@@ -35,7 +36,7 @@
                   to="#"
                   class="ml-4 font-medium text-gray-500 hover:text-gray-700"
                 >
-                  Surveys
+                  Users
                 </router-link>
               </div>
             </li>
@@ -43,10 +44,10 @@
         </nav>
 
         <router-link
-          to="/survey/create"
+          to="/users/create"
           class="px-4 py-3 transition-all duration-300 border border-indigo-500 rounded-md hover:ease-in-out hover:bg-indigo-500 hover:bg-opacity-30 hover:shadow-lg"
         >
-          Add New Survey
+          Add New Users
         </router-link>
       </div>
 
@@ -63,69 +64,54 @@
                     scope="col"
                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
-                    Id
-                  </th>
-
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase"
-                  >
                     Name
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
-                    Question
+                    Email
                   </th>
-                  <th scope="col" class="relative px-6 py-3"></th>
-                  <th scope="col" class="relative px-6 py-3"></th>
-                  <th scope="col" class="relative px-6 py-3"></th>
-                  <th scope="col" class="relative px-6 py-3"></th>
-
-                  <th scope="col" class="relative px-6 py-3 text-right">
-                    Action
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                  >
+                    Role
                   </th>
+                  <th scope="col" class="relative px-6 py-3">
+                    <span class="sr-only">Edit</span>
+                  </th>
+                  <th scope="col" class="relative px-6 py-3">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="getUsers">
                 <tr
-                  v-for="(survey, surveyIdx) in people"
-                  :key="surveyIdx"
-                  :class="surveyIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
+                  v-for="(user, personIdx) in getUsers"
+                  :key="personIdx"
+                  :class="personIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
                 >
                   <td
                     class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                   >
-                    {{ survey.id }}
-                  </td>
-                  <td
-                    class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap"
-                  >
-                    {{ survey.name }}
-                  </td>
-                  <td
-                    class="px-6 py-4 text-sm text-left text-gray-500 whitespace-nowrap"
-                  >
-                    {{ survey.questions }}
+                    {{ user.id }}
                   </td>
                   <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                    {{ survey.role }}
+                    {{ user.email }}
                   </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                    {{ user.role }}
+                  </td>
 
-                  <div class="flex justify-end">
-                    <td
-                      class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap"
-                    >
-                      <TrashIcon class="w-5 h-5 mr-3" />
-                    </td>
-                    <td class="px-6 py-4 text-sm font-medium text-center">
-                      <PencilIcon class="w-5 h-5 mr-3" />
-                    </td>
-                  </div>
+                  <td
+                    class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
+                  >
+                    <TrashIcon class="w-5 h-5 mr-3" />
+                  </td>
+                  <td
+                    class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
+                  >
+                    <PencilIcon class="w-5 h-5 mr-3" />
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -138,30 +124,11 @@
 
 <script setup>
 import { HomeIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
-const people = [
-  {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    role: 'Admin',
-    email: 'jane.cooper@example.com',
-  },
-  {
-    name: 'Cody Fisher',
-    title: 'Product Directives Officer',
-    role: 'Owner',
-    email: 'cody.fisher@example.com',
-  },
-  {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    role: 'Admin',
-    email: 'jane.cooper@example.com',
-  },
-  {
-    name: 'Cody Fisher',
-    title: 'Product Directives Officer',
-    role: 'Owner',
-    email: 'cody.fisher@example.com',
-  },
-]
+import { ref, reactive } from 'vue'
+import { useUserStore } from '../../../../resources/scripts/stores/user'
+
+const people = []
+const userStore = useUserStore()
+
+let getUsers = userStore.fetchAllUsers()
 </script>
