@@ -3,7 +3,7 @@
     <div class="px-2 py-0 mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="relative flex justify-between h-24">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-          <!-- Mobile menu button -->
+          <!-- Mobile Toggle button -->
           <DisclosureButton
             class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
           >
@@ -13,12 +13,12 @@
           </DisclosureButton>
         </div>
 
-        <!-- Logo -->
+        <!-- Web Logo -->
         <div
-          class="flex items-center justify-center flex-shrink-0 hidden mt-6 transition-all duration-100 transform border-b-2 border-blue-500 sm:block lg:justify-start rounded-b-md hover:border-none hover:scale-x-90"
+          class="flex items-center justify-center flex-shrink-0 hidden mt-6 transition-all duration-100 transform border-b-2 border-blue-500 sm:block lg:justify-start rounded-b-md hover:border-none"
         >
           <a
-            href="/"
+            href="#"
             class="text-base italic font-bold text-blue-500 lg:text-4xl"
           >
             Vue
@@ -34,12 +34,12 @@
         <div
           class="flex items-center justify-center flex-1 sm:items-stretch sm:justify-center"
         >
-          <!-- mobile logo -->
+          <!-- Mobile logo -->
           <div
-            class="flex items-center justify-center flex-shrink-0 transition-all duration-100 transform border-b-2 border-blue-500 sm:hidden lg:justify-start rounded-b-md hover:border-none hover:scale-x-90"
+            class="flex items-center justify-center flex-shrink-0 transition-all duration-100 transform border-b-2 border-blue-500 sm:hidden lg:justify-start rounded-b-md hover:border-none"
           >
             <a
-              href="/"
+              href="#"
               class="text-base italic font-bold text-blue-500 lg:text-4xl"
             >
               Vue
@@ -51,36 +51,49 @@
             </a>
           </div>
 
-          <!-- Menu items -->
+          <!-- Menu Items -->
           <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-            <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
+            <!-- Admin side -->
             <router-link
+              v-if="isAdmin"
               to="/dashboard"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
             >
               Dashboard
             </router-link>
 
             <router-link
+              v-if="isAdmin"
               to="/survey"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-gray-300 hover:text-gray-700"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
             >
               Survey
             </router-link>
 
             <router-link
+              v-if="isAdmin"
               to="/users"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-gray-300 hover:text-gray-700"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
             >
               Users
             </router-link>
 
-            <!-- <router-link
+            <!-- User side  -->
+            <router-link
+              v-if="!isAdmin"
               to="/user/dashboard"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
+              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
             >
-              User
-            </router-link> -->
+              Dashboard
+            </router-link>
+
+            <router-link
+              v-if="!isAdmin"
+              to="/user/surveys"
+              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
+            >
+              User Survey
+            </router-link>
           </div>
         </div>
 
@@ -113,27 +126,6 @@
                 class="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 <MenuItem v-slot="{ active }">
-                  <router-link
-                    to="/profile"
-                    :class="[
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700',
-                    ]"
-                    >Your Profile
-                  </router-link>
-                </MenuItem>
-                <MenuItem v-slot="{ active }">
-                  <router-link
-                    to="/settings"
-                    :class="[
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700',
-                    ]"
-                  >
-                    Settings
-                  </router-link>
-                </MenuItem>
-                <MenuItem v-slot="{ active }">
                   <a
                     href="#"
                     @click="signOut"
@@ -156,25 +148,44 @@
     <DisclosurePanel class="sm:hidden">
       <div class="pt-2 pb-4 space-y-1">
         <DisclosureButton
+          v-if="isAdmin"
           as="a"
-          href="#"
+          href="/dashboard"
           class="block py-2 pl-3 pr-4 text-base font-medium text-indigo-700 border-l-4 border-indigo-500 bg-indigo-50"
         >
           Dashboard
         </DisclosureButton>
         <DisclosureButton
+          v-if="isAdmin"
           as="a"
-          href="#"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
+          href="/surveys"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
         >
           Survey
         </DisclosureButton>
         <DisclosureButton
+          v-if="isAdmin"
           as="a"
-          href="#"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
+          href="/users"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
         >
           Users
+        </DisclosureButton>
+        <DisclosureButton
+          v-if="isUser"
+          as="a"
+          href="/user/dashboard"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
+        >
+          Dashboard
+        </DisclosureButton>
+        <DisclosureButton
+          v-if="isUser"
+          as="a"
+          href="/user/surveys/user-survey"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
+        >
+          User Survey
         </DisclosureButton>
       </div>
     </DisclosurePanel>
@@ -192,15 +203,24 @@ import {
   MenuItems,
 } from '@headlessui/vue'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline'
-
+import Ls from '../services/ls'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '../../src/stores/auth'
-import { useNotificationStore } from '../stores/notification'
+import { useAuthStore } from '../resources/scripts/stores/auth'
+import { useNotificationStore } from '../resources/scripts/stores/notification'
+import { watchEffect, ref } from 'vue'
 
 const authStore = useAuthStore()
 const notificationStore = useNotificationStore()
 
 const router = useRouter()
+
+const isUser = ref()
+const isAdmin = ref()
+
+watchEffect(() => {
+  isUser.value = JSON.parse(Ls.get('isUser'))
+  isAdmin.value = JSON.parse(Ls.get('isAdmin'))
+})
 
 function signOut() {
   try {

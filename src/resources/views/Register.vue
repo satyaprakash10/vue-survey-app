@@ -54,6 +54,21 @@
             </div>
           </div>
 
+          <div>
+            <label for="role" class="block text-sm font-medium text-gray-700"
+              >Role</label
+            >
+            <select
+              v-model="loginData.role"
+              id="role"
+              name="role"
+              class="block w-full py-2 pl-3 pr-10 mt-1 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option>user</option>
+              <option>admin</option>
+            </select>
+          </div>
+
           <button
             type="submit"
             class="flex justify-center , w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -70,35 +85,23 @@
 
 <script setup type="text/babel">
 import { reactive } from 'vue'
-import { useAuthStore } from '../../../src/resources/scripts/stores/auth'
-import { useNotificationStore } from '../../../src/resources/scripts/stores/notification'
+import { useAuthStore } from '../../stores/auth'
 import { useRouter } from 'vue-router'
-import Ls from '../../services/ls'
 
 const router = useRouter()
 
 let loginData = reactive({
   email: '',
   password: '',
+  role: '',
 })
 
-const notificationStore = useNotificationStore()
 const authStore = useAuthStore()
 
-function submitLoginData() {
+async function submitLoginData() {
   try {
-    if (loginData.email === 'admin@gmail.com') {
-      router.push('/dashboard')
-      Ls.set('isAdmin', JSON.stringify(true))
-    } else {
-      router.push('/user/dashboard')
-      Ls.set('isUser', JSON.stringify(true))
-      authStore.getCurrentUser(loginData)
-    }
-    notificationStore.showNotification({
-      type: 'success',
-      message: 'Logged in Successfully.',
-    })
+    await authStore.register(loginData)
+    router.push('/')
   } catch (error) {
     console.log(error)
   }

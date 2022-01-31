@@ -72,13 +72,7 @@
                   >
                     Name
                   </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase"
-                  >
-                    Question
-                  </th>
-                  <th scope="col" class="relative px-6 py-3"></th>
+
                   <th scope="col" class="relative px-6 py-3"></th>
                   <th scope="col" class="relative px-6 py-3"></th>
                   <th scope="col" class="relative px-6 py-3"></th>
@@ -90,28 +84,21 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="(survey, surveyIdx) in people"
+                  v-for="(survey, surveyIdx) in surveyStore.surveys"
                   :key="surveyIdx"
                   :class="surveyIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
                 >
                   <td
                     class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                   >
-                    {{ survey.id }}
+                    {{ survey.survey_id }}
                   </td>
                   <td
                     class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap"
                   >
-                    {{ survey.name }}
+                    {{ survey.survey_name }}
                   </td>
-                  <td
-                    class="px-6 py-4 text-sm text-left text-gray-500 whitespace-nowrap"
-                  >
-                    {{ survey.questions }}
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                    {{ survey.role }}
-                  </td>
+
                   <td></td>
                   <td></td>
                   <td></td>
@@ -119,11 +106,14 @@
                   <div class="flex justify-end">
                     <td
                       class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap"
+                      @click="removeSurvey(survey.survey_id)"
                     >
                       <TrashIcon class="w-5 h-5 mr-3" />
                     </td>
                     <td class="px-6 py-4 text-sm font-medium text-center">
-                      <PencilIcon class="w-5 h-5 mr-3" />
+                      <router-link :to="`/survey/edit/${survey.survey_id}`">
+                        <PencilIcon class="w-5 h-5 mr-3" />
+                      </router-link>
                     </td>
                   </div>
                 </tr>
@@ -138,30 +128,13 @@
 
 <script setup>
 import { HomeIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
-const people = [
-  {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    role: 'Admin',
-    email: 'jane.cooper@example.com',
-  },
-  {
-    name: 'Cody Fisher',
-    title: 'Product Directives Officer',
-    role: 'Owner',
-    email: 'cody.fisher@example.com',
-  },
-  {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    role: 'Admin',
-    email: 'jane.cooper@example.com',
-  },
-  {
-    name: 'Cody Fisher',
-    title: 'Product Directives Officer',
-    role: 'Owner',
-    email: 'cody.fisher@example.com',
-  },
-]
+import { useSurveyStore } from '../../../scripts/stores/survey'
+
+const surveyStore = useSurveyStore()
+
+surveyStore.fetchAllSurveys()
+
+function removeSurvey(id) {
+  surveyStore.deleteSurvey(id)
+}
 </script>

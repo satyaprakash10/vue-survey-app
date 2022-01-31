@@ -6,7 +6,7 @@
         <h1
           class="w-full px-6 py-2 mb-4 text-base font-bold text-center bg-gray-100 border-t-4 border-indigo-500 border-solid rounded-md shadow sm:mb-0 lg:max-w-lg sm:text-xl"
         >
-          Users List
+          Users
         </h1>
         <router-link
           to="/users/create"
@@ -26,7 +26,7 @@
         <h1
           class="w-full px-6 py-2 mb-4 text-base font-bold text-center bg-gray-100 border-t-4 border-indigo-500 border-solid rounded-md shadow sm:mb-0 lg:max-w-lg sm:text-xl"
         >
-          Surveys List
+          Surveys
         </h1>
         <router-link
           to="/survey/create"

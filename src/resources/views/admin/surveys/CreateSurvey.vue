@@ -32,7 +32,7 @@
                 <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
               </svg>
               <router-link
-                to="/surveys"
+                to="/survey"
                 class="ml-4 font-medium text-gray-500 hover:text-gray-700"
               >
                 Surveys
@@ -110,11 +110,11 @@
               Surveys Questions :
             </h1>
             <div
-              v-for="(question, index) in questions"
-              :key="index"
+              v-for="(question, questionIndex) in questions"
+              :key="questionIndex"
               :class="''
                   ? 'border-indigo-500 border-solid border-t-2 mb-3 mt-4'
-                  : index > 1
+                  : questionIndex > 1
               "
             >
               <div class="border-b-2 sm:grid sm:grid-cols-4">
@@ -123,15 +123,15 @@
                 >
                   Question No :
                   <span class="text-sm font-semibold text-gray-900 sm:text-xl">
-                    {{ index + 1 }}
+                    {{ questionIndex + 1 }}
                   </span>
                 </h1>
                 <div></div>
                 <div></div>
                 <TrashIcon
-                  @click="removeQuestions(id)"
                   v-if="questions.length > 1"
                   class="flex justify-end w-8 h-8 mx-auto mt-6 mb-3 mr-2 text-center text-gray-600 cursor-pointer hover:text-gray-900"
+                  @click="removeQuestions(questionIndex)"
                 />
               </div>
 
@@ -176,8 +176,8 @@
               <div class="">
                 <div
                   class="sm:grid-cols-4 sm:grid sm:gap-6"
-                  v-for="(question, index) in question.options"
-                  :key="index"
+                  v-for="(question, optionIndex) in question.options"
+                  :key="optionIndex"
                 >
                   <h1
                     class="py-3 mt-3 text-sm font-bold text-gray-500 sm:text-lg"
@@ -186,7 +186,7 @@
                     <span
                       class="text-sm font-semibold text-gray-900 sm:text-xl"
                     >
-                      {{ index + 1 }}
+                      {{ optionIndex + 1 }}
                     </span>
                   </h1>
 
@@ -224,17 +224,16 @@
                       />
                     </div>
                   </div>
-
                   <TrashIcon
-                    v-if="index > 0"
-                    @click="removeOption()"
+                    v-if="optionIndex > 0"
+                    @click="removeOption(optionIndex)"
                     class="w-8 h-8 mx-auto mt-3 mb-3 mr-2 text-center text-gray-600 cursor-pointer sm:mt-16 hover:text-gray-900"
                   />
                 </div>
 
                 <div class="">
                   <button
-                    @click.prevent="addMoreOption(index)"
+                    @click.prevent="addMoreOption(questionIndex)"
                     class="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium text-gray-900 transition-all duration-500 ease-in-out border border-indigo-500 shadow hover:border-indigo-500 hover:border-2 focus:ring-indigo-500 rounded-b-md sm:justify-auto sm:text-sm hover:bg-gray-500 hover:bg-opacity-30"
                   >
                     <PlusIcon class="w-6 h-6 mr-4" />
@@ -243,10 +242,6 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="hidden max-w-lg mt-6 sm:block">
-            {{ questions }}
           </div>
 
           <button
@@ -262,7 +257,7 @@
           class="flex justify-center px-6 pt-16 mx-auto sm:justify-start max-w-7xl"
         >
           <button
-            @click.prevent="addSurveyData"
+            @click.prevent="submitSurveyData"
             class="flex justify-center w-full px-2 py-3 text-white bg-indigo-600 rounded-md shadow sm:w-40 hover:bg-blue-500 hover:bg-opacity-90"
           >
             <SaveIcon class="w-6 h-6 mr-4" />
@@ -281,6 +276,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useSurveyStore } from '../../../../resources/scripts/stores/survey'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
+import { useNotificationStore } from '../../../scripts/stores/notification'
 
 //   local data variable declaration
 let questions = reactive([
@@ -295,18 +291,21 @@ let questions = reactive([
     ],
   },
 ])
-let question = ref()
+
 let survey_id = ref('')
 let survey_name = ref('')
+
 const surveyStore = useSurveyStore()
+const notificationStore = useNotificationStore()
+
 let isSaving = ref(false)
+
 const route = useRoute()
 const router = useRouter()
 
 const rules = {
   options: {
     required: required,
-
     minLength: minLength(4),
   },
 }
@@ -315,6 +314,15 @@ const v$ = useVuelidate(
   rules,
   computed(() => questions)
 )
+
+//created
+if (route.params.id) {
+  surveyStore.fetchSurvey(route.params.id)
+
+  survey_id.value = surveyStore.currentSurvey.survey_id
+  survey_name.value = surveyStore.currentSurvey.survey_name
+  questions = surveyStore.currentSurvey.questions
+}
 
 // methods
 function getCurrentSurvey() {
@@ -347,28 +355,34 @@ function removeQuestions(index) {
   questions.splice(index, 1)
 }
 
-function addSurveyData() {
-  if (validate.error) {
-    return false
-  }
-  isSaving.value = true
+function submitSurveyData() {
+  // if (validate.error) {
+  //   return false
+  // }
+
   let surveyData = {
     survey_id: survey_id.value,
     survey_name: survey_name.value,
-    questions: {
-      question_id: questions.question_id,
-      question: questions.question_name,
-      options: {
-        option_id: questions.options.option_id,
-        option_text: questions.options.option_text,
-      },
-    },
+    questions: questions,
   }
-  surveyStore.addUser(...surveyData)
   console.log('add survey =>', surveyData)
+  isSaving.value = true
+  if (route.params.id) {
+    surveyStore.updateSurvey(surveyData)
+    notificationStore.showNotification({
+      type: 'success',
+      message: 'Survey updated successfully.',
+    })
+  } else {
+    surveyStore.addSurvey(surveyData)
+    notificationStore.showNotification({
+      type: 'success',
+      message: 'Survey Added successfully.',
+    })
+  }
 
   isSaving.value = false
 
-  router.push('/surveys')
+  router.push('/survey')
 }
 </script>

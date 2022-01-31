@@ -164,9 +164,9 @@ import { ref, reactive, watch, computed, watchEffect } from 'vue'
 import { HomeIcon, PlusIcon, SaveIcon, TrashIcon } from '@heroicons/vue/solid'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '../../../../resources/scripts/stores/user'
-import { useNotificationStore } from '../../../../stores/notification'
+import { useNotificationStore } from '../../../scripts/stores/notification'
 
-// local data variable declaration
+// local state variable
 const userStore = useUserStore()
 const notificationStore = useNotificationStore()
 
@@ -189,13 +189,13 @@ function submitUserData() {
     userStore.updateUser(userStore.userData)
     notificationStore.showNotification({
       type: 'success',
-      message: 'user added successfully.',
+      message: 'User Updated Successfully.',
     })
   } else {
     userStore.addUser(userStore.userData)
     notificationStore.showNotification({
       type: 'success',
-      message: 'user added successfully.',
+      message: 'User Added Successfully.',
     })
   }
 

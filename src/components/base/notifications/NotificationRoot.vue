@@ -22,7 +22,7 @@
 <script>
 import NotificationItem from './NotificationItem.vue'
 import { computed } from 'vue'
-import { useNotificationStore } from '../../../stores/notification'
+import { useNotificationStore } from '../../../resources/scripts/stores/notification'
 export default {
   components: {
     NotificationItem,

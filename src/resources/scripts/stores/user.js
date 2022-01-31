@@ -24,10 +24,6 @@ export const useUserStore = defineStore({
     },
   }),
 
-  getters: {
-    getUser: (state) => state.userData,
-  },
-
   actions: {
     resetUserData() {
       this.userData = {
@@ -61,6 +57,7 @@ export const useUserStore = defineStore({
     deleteUser(id) {
       let index = this.users.findIndex((user) => user.id === id)
       this.users.splice(index, 1)
+      Ls.set('users', JSON.stringify(this.users))
     },
   },
 })

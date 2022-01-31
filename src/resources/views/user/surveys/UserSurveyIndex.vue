@@ -4,13 +4,12 @@
       <!-- Breadcrumb -->
       <div class="flex items-center justify-between">
         <nav class="" aria-label="Breadcrumb">
-          <h1 class="mb-6 text-lg font-bold sm:text-xl">Users</h1>
-
+          <h1 class="mb-6 text-lg font-bold sm:text-xl">Surveys</h1>
           <ol role="list" class="flex items-center space-x-4">
             <li>
               <div>
                 <router-link
-                  to="/dashboard"
+                  to="/user/dashboard"
                   class="flex text-gray-400 hover:text-gray-500"
                 >
                   <HomeIcon
@@ -21,6 +20,7 @@
                 </router-link>
               </div>
             </li>
+
             <li>
               <div class="flex items-center">
                 <svg
@@ -34,28 +34,21 @@
                 </svg>
                 <router-link
                   to="#"
-                  class="ml-4 font-medium text-gray-500 hover:text-gray-700"
+                  class="ml-4 font-medium text-gray-800 hover:text-gray-700"
                 >
-                  Users
+                  User Surveys
                 </router-link>
               </div>
             </li>
           </ol>
         </nav>
-
-        <router-link
-          to="/users/create"
-          class="px-4 py-3 transition-all duration-300 border border-indigo-500 rounded-md hover:ease-in-out hover:bg-indigo-500 hover:bg-opacity-30 hover:shadow-lg"
-        >
-          Add New Users
-        </router-link>
       </div>
 
       <!-- Surveys Table Lists -->
       <div class="mt-8 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div
-            class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
+            class="overflow-hidden border-t-4 border-indigo-500 shadow border-rounded-t-md sm:rounded-lg"
           >
             <table class="min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-50">
@@ -64,67 +57,81 @@
                     scope="col"
                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
+                    Id
+                  </th>
+
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase"
+                  >
                     Name
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                    class="py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase"
                   >
-                    Email
+                    Questions
                   </th>
+
                   <th
                     scope="col"
-                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                    class="py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase"
                   >
-                    Role
+                    Question Id
                   </th>
-                  <th scope="col" class="relative px-6 py-3">
-                    <span class="sr-only">Edit</span>
-                  </th>
+
                   <th scope="col" class="relative px-6 py-3"></th>
+                  <th scope="col" class="relative px-6 py-3"></th>
+                  <th scope="col" class="relative px-6 py-3"></th>
+
                   <th scope="col" class="relative px-6 py-3 text-right">
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody v-if="userStore.users">
+
+              <tbody>
                 <tr
-                  v-for="(user, personIdx) in userStore.users"
-                  :key="personIdx"
-                  :class="personIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
+                  v-for="(survey, surveyIdx) in people"
+                  :key="surveyIdx"
+                  :class="surveyIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
                 >
                   <td
                     class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                   >
-                    {{ user.id }}
+                    {{ survey.id }}
                   </td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                    {{ user.email }}
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                    {{ user.role }}
+                  <td
+                    class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap"
+                  >
+                    {{ survey.name }}
                   </td>
 
+                  <td
+                    class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap"
+                  >
+                    {{ survey.question }}
+                  </td>
+
+                  <td
+                    class="px-6 py-4 text-sm text-right text-gray-500 whitespace-nowrap"
+                  >
+                    {{ survey.question_id }}
+                  </td>
+
+                  <td></td>
                   <td></td>
                   <td></td>
 
                   <div class="flex justify-end">
-                    <div class="hover:bg-gray-100">
-                      <td
-                        class="px-6 py-4 text-sm font-medium text-right cursor-pointer whitespace-nowrap"
-                        @click="removeUser(user.id)"
-                      >
-                        <TrashIcon class="w-5 h-5 mr-3" />
-                      </td>
-                    </div>
-                    <div class="hover:bg-gray-100">
-                      <td
-                        class="px-6 py-4 text-sm font-medium text-right cursor-pointer whitespace-nowrap"
-                      >
-                        <router-link :to="`/users/edit/${user.id}`">
+                    <div
+                      class="cursor-pointer hover:bg-gray-300 hover:text-indigo-500"
+                    >
+                      <router-link to="/user/surveys/manage-survey">
+                        <td class="px-6 py-4 text-sm font-medium text-center">
                           <PencilIcon class="w-5 h-5 mr-3" />
-                        </router-link>
-                      </td>
+                        </td>
+                      </router-link>
                     </div>
                   </div>
                 </tr>
@@ -138,21 +145,32 @@
 </template>
 
 <script setup>
+import { useUserSurveyStore } from '../../../scripts/stores/userSurvey'
 import { HomeIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
-import { ref, reactive } from 'vue'
-import { useUserStore } from '../../../../resources/scripts/stores/user'
-import { useNotificationStore } from '../../../../resources/scripts/stores/notification'
 
-const userStore = useUserStore()
-const notificationStore = useNotificationStore()
+const userSurveyStore = useUserSurveyStore()
 
-userStore.fetchAllUsers()
+userSurveyStore.fetchAllUserSurveys()
 
-function removeUser(id) {
-  userStore.deleteUser(id)
-  notificationStore.showNotification({
-    type: 'success',
-    message: 'User Deleted Successfully.',
-  })
-}
+const people = [
+  {
+    id: '1',
+    name: 'Vue Que',
+    question_id: '1',
+    question: 'What is a vue Js ? ',
+  },
+  {
+    id: '3',
+    name: 'Nuxt JS',
+    question_id: '2',
+
+    question: 'What is a Nuxt Js ? ',
+  },
+  {
+    id: '3',
+    name: 'Tailwind',
+    question_id: '3',
+    question: 'What is a Tailwind Css ? ',
+  },
+]
 </script>

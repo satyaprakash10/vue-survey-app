@@ -110,7 +110,7 @@
 
 <script setup>
 import { onMounted, computed, ref } from 'vue'
-import { useNotificationStore } from '../../../stores/notification'
+import { useNotificationStore } from '../../../resources/scripts/stores/notification'
 
 // Props
 
