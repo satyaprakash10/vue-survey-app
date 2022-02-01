@@ -65,7 +65,7 @@
       <div
         class="px-6 py-5 mt-5 bg-white border-t-4 border-indigo-500 border-solid rounded-md shadow"
       >
-        <div v-for="(survey, index) in surveyStore.survey" :key="index">
+        <div v-if="survey">
           <div class="sm:grid sm:grid-cols-2 sm:gap-2">
             <div class="py-4 mt-2 sm:border-gray-200 sm:pt-4">
               <label
@@ -160,17 +160,16 @@
                     <input
                       name=""
                       type="radio"
-                      :id="opt.id"
-                      :checked="opt.id"
+                      :id="opt.option_id"
                       :value="opt.option_text"
                       v-model="opt.answer"
                       class="w-6 h-6 text-indigo-600 border-gray-300 cursor-pointer focus:ring-indigo-500"
+                      @click="surveyQueOpt(question.question_id, opt.option_id)"
                     />
                     <div class="font-bold sm:mt-0">
                       {{ opt.option_text }}
                     </div>
                   </div>
-                  {{ opt.answer }}
                 </div>
               </div>
             </div>
@@ -201,13 +200,22 @@ import { useSurveyStore } from '../../../scripts/stores/survey'
 import { useUserSurveyStore } from '../../../scripts/stores/userSurvey'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
-import { useAuthStore } from '../../../scripts/stores/auth'
 import { useNotificationStore } from '../../../scripts/stores/notification'
+import Ls from '../../../../services/ls'
 
 const surveyStore = useSurveyStore()
 const userSurveyStore = useUserSurveyStore()
 const notificationStore = useNotificationStore()
-const authStore = useAuthStore()
+
+const survey = ref(null)
+const currentUser = JSON.parse(Ls.get('currentUser'))
+
+let surveyData = reactive([
+  {
+    question_id: null,
+    option_id: null,
+  },
+])
 
 let isSaving = ref(false)
 const route = useRoute()
@@ -217,34 +225,38 @@ const router = useRouter()
 surveyStore.fetchSurvey()
 
 watchEffect(() => {
+  survey.value = JSON.parse(Ls.get('currentSurvey'))
   if (route.params.id) {
+    console.log('Survey id', route.params.id)
     surveyStore.fetchSurvey(route.params.id)
   }
 })
 
 // methods
+function surveyQueOpt(queId, optId) {
+  this.surveyData.push({ question_id: queId, option_id: optId })
+}
+
 function submitSurvey() {
   // if (validate.error) {
   //   return false
   // }
   isSaving.value = true
-  let surveyData = {
-    user_id: authStore.currentUser.id,
-    survey_id: surveyStore.survey_id,
-    surveyData: {
-      question_id: surveyStore.question_id,
-      option_id: surveyStore.option_id,
-    },
+  let userSurveyData = {
+    user_id: currentUser.id,
+    survey_id: survey.value.survey_id,
+    surveyData: surveyData,
   }
 
-  userSurveyStore.submitUserSurvey(surveyData)
-  console.log('Survey submit =>', surveyData)
+  surveyStore.submitUserSurvey(userSurveyData)
+  console.log('Survey submit =>', userSurveyData)
 
   notificationStore.showNotification({
     type: 'success',
     message: 'Survey Submit Successfully.',
   })
   isSaving.value = false
+  userSurveyData = null
 
   router.push('/user/surveys')
 }

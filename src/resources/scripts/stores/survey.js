@@ -6,10 +6,18 @@ export const useSurveyStore = defineStore({
 
   state: () => ({
     surveys: [],
+    userSurveys: [],
     currentSurvey: null,
   }),
 
   actions: {
+    fetchUserSurveys(id) {
+      console.log('id =>', this.userSurveys)
+      this.userSurveys = JSON.parse(Ls.get('userSurveys'))
+    },
+
+    // fetchUserSurvey(id) {},
+
     fetchAllSurveys() {
       this.surveys = JSON.parse(Ls.get('surveys'))
     },
@@ -38,6 +46,13 @@ export const useSurveyStore = defineStore({
       let index = this.surveys.findIndex((survey) => survey.survey_id === id)
       this.surveys.splice(index, 1)
       Ls.set('surveys', JSON.stringify(this.surveys))
+    },
+
+    submitUserSurvey(data) {
+      if (data) {
+        this.userSurveys.push(data)
+        Ls.set('userSurveys', JSON.stringify(this.userSurveys))
+      }
     },
   },
 })

@@ -57,7 +57,7 @@
             <router-link
               v-if="isAdmin"
               to="/dashboard"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
             >
               Dashboard
             </router-link>
@@ -65,7 +65,7 @@
             <router-link
               v-if="isAdmin"
               to="/survey"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
             >
               Survey
             </router-link>
@@ -73,7 +73,7 @@
             <router-link
               v-if="isAdmin"
               to="/users"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
             >
               Users
             </router-link>
@@ -82,7 +82,7 @@
             <router-link
               v-if="!isAdmin"
               to="/user/dashboard"
-              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
+              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
             >
               Dashboard
             </router-link>
@@ -90,7 +90,7 @@
             <router-link
               v-if="!isAdmin"
               to="/user/surveys"
-              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-900"
+              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
             >
               User Survey
             </router-link>
@@ -101,18 +101,31 @@
           class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
         >
           <!-- Profile dropdown -->
-          <Menu as="div" class="relative ml-3">
+          <Menu as="div" class="relative mt-2 ml-3">
             <div>
               <MenuButton
-                class="flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <span class="sr-only">Open user menu</span>
                 <img
-                  class="w-8 h-8 rounded-full"
+                  class="w-8 h-8 ml-2 rounded-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
                 />
               </MenuButton>
+              <h3
+                v-if="isUser"
+                class="ml-2 text-base font-semibold text-gray-600"
+              >
+                User
+              </h3>
+
+              <h3
+                v-if="isAdmin"
+                class="mr-4 text-base font-semibold text-gray-600"
+              >
+                Admin
+              </h3>
             </div>
             <transition
               enter-active-class="transition duration-200 ease-out"
@@ -159,7 +172,7 @@
           v-if="isAdmin"
           as="a"
           href="/surveys"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
           Survey
         </DisclosureButton>
@@ -167,7 +180,7 @@
           v-if="isAdmin"
           as="a"
           href="/users"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
           Users
         </DisclosureButton>
@@ -175,7 +188,7 @@
           v-if="isUser"
           as="a"
           href="/user/dashboard"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
           Dashboard
         </DisclosureButton>
@@ -183,7 +196,7 @@
           v-if="isUser"
           as="a"
           href="/user/surveys/user-survey"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-indigo-500 hover:border-b-4 hover:border-solid hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
           User Survey
         </DisclosureButton>

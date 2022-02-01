@@ -1,10 +1,11 @@
 <template>
-  <div class="" style="height: 100vh">
+  <div class="w-full" style="height: 100vh">
     <NotificationRoot />
 
     <!-- The site header -->
     <TheSiteHeader
       :open="open"
+      class="w-full"
       @toggle="open = !open"
       v-if="$route.name !== 'login'"
     />

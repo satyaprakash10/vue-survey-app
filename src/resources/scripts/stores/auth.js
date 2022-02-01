@@ -7,7 +7,6 @@ export const useAuthStore = defineStore({
   state: () => ({
     isUser: JSON.parse(Ls.get('isUser')),
     isAdmin: JSON.parse(Ls.get('isAdmin')),
-    currentUser: JSON.parse(Ls.get('currentUser')),
   }),
 
   actions: {

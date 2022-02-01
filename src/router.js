@@ -10,6 +10,8 @@ import AdminDashboard from './resources/views/admin/AdminDashboard.vue'
 import SurveyIndex from './resources/views/admin/surveys/SurveyIndex.vue'
 import CreateSurvey from './resources/views/admin/surveys/CreateSurvey.vue'
 
+import UserSurveyView from './components/UserSurveyView.vue'
+
 import UsersIndex from './resources/views/admin/users/UserIndex.vue'
 import UsersCreate from './resources/views/admin/users/UserCreate.vue'
 
@@ -82,6 +84,12 @@ const routes = [
     path: '/user/surveys/manage-survey',
     name: 'userSurvey',
     component: UserSurvey,
+  },
+
+  {
+    path: '/:id',
+    name: 'userSurvey',
+    component: UserSurveyView,
   },
 ]
 

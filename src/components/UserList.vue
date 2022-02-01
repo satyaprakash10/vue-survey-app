@@ -1,6 +1,7 @@
 <template>
-  <div class="px-6 py-2 mt-12">
+  <div class="px-6 py-2">
     <ul
+      v-if="userStore.users"
       role="list"
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
@@ -40,11 +41,20 @@
         </div>
       </li>
     </ul>
+
+    <!-- message if no users ! -->
+    <div
+      v-else
+      class="w-full px-5 py-6 mt-4 mb-10 font-serif text-lg font-semibold text-center text-gray-500 bg-indigo-100 rounded-md shadow-lg sm:text-xl lg:text-2xl"
+    >
+      <UsersIcon class="w-10 h-10 mx-auto mb-4 text-center text-blue-500" />
+      No Users yet!
+    </div>
   </div>
 </template>
 
 <script setup>
-import { MailIcon, PhoneIcon } from '@heroicons/vue/solid'
+import { MailIcon, UsersIcon, PhoneIcon } from '@heroicons/vue/solid'
 import { useUserStore } from '../../src/resources/scripts/stores/user'
 
 const userStore = useUserStore()

@@ -73,13 +73,6 @@
                     Questions
                   </th>
 
-                  <th
-                    scope="col"
-                    class="py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase"
-                  >
-                    Question Id
-                  </th>
-
                   <th scope="col" class="relative px-6 py-3"></th>
                   <th scope="col" class="relative px-6 py-3"></th>
                   <th scope="col" class="relative px-6 py-3"></th>
@@ -92,31 +85,25 @@
 
               <tbody>
                 <tr
-                  v-for="(survey, surveyIdx) in people"
+                  v-for="(survey, surveyIdx) in surveyStore.surveys"
                   :key="surveyIdx"
                   :class="surveyIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
                 >
                   <td
                     class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                   >
-                    {{ survey.id }}
+                    {{ survey.survey_id }}
                   </td>
                   <td
                     class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap"
                   >
-                    {{ survey.name }}
+                    {{ survey.survey_name }}
                   </td>
 
                   <td
                     class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap"
                   >
-                    {{ survey.question }}
-                  </td>
-
-                  <td
-                    class="px-6 py-4 text-sm text-right text-gray-500 whitespace-nowrap"
-                  >
-                    {{ survey.question_id }}
+                    {{ survey.questions.length }}
                   </td>
 
                   <td></td>
@@ -127,8 +114,13 @@
                     <div
                       class="cursor-pointer hover:bg-gray-300 hover:text-indigo-500"
                     >
-                      <router-link to="/user/surveys/manage-survey">
-                        <td class="px-6 py-4 text-sm font-medium text-center">
+                      <router-link
+                        :to="`/user/surveys/${survey.survey_id}/manage-survey`"
+                      >
+                        <td
+                          @click="userSurvey(survey.survey_id)"
+                          class="px-6 py-4 text-sm font-medium text-center"
+                        >
                           <PencilIcon class="w-5 h-5 mr-3" />
                         </td>
                       </router-link>
@@ -145,32 +137,16 @@
 </template>
 
 <script setup>
-import { useUserSurveyStore } from '../../../scripts/stores/userSurvey'
 import { HomeIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
+import { useSurveyStore } from '../../../scripts/stores/survey'
+import { useUserSurveyStore } from '../../../scripts/stores/userSurvey'
 
+const surveyStore = useSurveyStore()
 const userSurveyStore = useUserSurveyStore()
 
-userSurveyStore.fetchAllUserSurveys()
+surveyStore.fetchAllSurveys()
 
-const people = [
-  {
-    id: '1',
-    name: 'Vue Que',
-    question_id: '1',
-    question: 'What is a vue Js ? ',
-  },
-  {
-    id: '3',
-    name: 'Nuxt JS',
-    question_id: '2',
-
-    question: 'What is a Nuxt Js ? ',
-  },
-  {
-    id: '3',
-    name: 'Tailwind',
-    question_id: '3',
-    question: 'What is a Tailwind Css ? ',
-  },
-]
+function userSurvey(id) {
+  userSurveyStore.fetchUserSurvey(id)
+}
 </script>

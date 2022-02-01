@@ -53,7 +53,7 @@
       <ExclamationIcon
         class="w-10 h-10 mx-auto mb-4 text-center text-gray-600"
       />
-      No Surveys yet!
+      No Surveys Attempted yet!
     </div>
   </div>
 </template>

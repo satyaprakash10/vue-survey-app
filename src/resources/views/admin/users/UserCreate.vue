@@ -62,7 +62,7 @@
       </nav>
 
       <!-- survey form start -->
-      <form action="" @submit="submitUserData">
+      <form action="" @submit.prevent="submitUserData">
         <div
           class="px-6 py-5 mt-5 bg-white border-t-2 border-indigo-500 border-solid rounded-md shadow rounded-t-md"
         >
@@ -140,8 +140,6 @@
             </div>
           </div>
 
-          {{ userStore.userData }}
-
           <div
             class="flex justify-center mx-auto mt-6 mb-6 sm:pt-12 sm:justify-start max-w-7xl"
           >
@@ -197,6 +195,7 @@ function submitUserData() {
       type: 'success',
       message: 'User Added Successfully.',
     })
+    userStore.userData = null
   }
 
   isSaving.value = false
