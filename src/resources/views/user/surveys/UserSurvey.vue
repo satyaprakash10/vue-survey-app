@@ -164,7 +164,9 @@
                       :value="opt.option_text"
                       v-model="opt.answer"
                       class="w-6 h-6 text-indigo-600 border-gray-300 cursor-pointer focus:ring-indigo-500"
-                      @click="surveyQueOpt(question.question_id, opt.option_id)"
+                      @click="
+                        surveyQueOpt(question.question_name, opt.option_text)
+                      "
                     />
                     <div class="font-bold sm:mt-0">
                       {{ opt.option_text }}
@@ -206,14 +208,14 @@ import Ls from '../../../../services/ls'
 const surveyStore = useSurveyStore()
 const userSurveyStore = useUserSurveyStore()
 const notificationStore = useNotificationStore()
-
-const survey = ref(null)
+console.log('hi')
+const survey = ref('')
 const currentUser = JSON.parse(Ls.get('currentUser'))
 
 let surveyData = reactive([
   {
-    question_id: null,
-    option_id: null,
+    question_text: null,
+    option_text: null,
   },
 ])
 
@@ -225,7 +227,9 @@ const router = useRouter()
 surveyStore.fetchSurvey()
 
 watchEffect(() => {
+  console.log(userSurveyStore.currentSurvey)
   survey.value = JSON.parse(Ls.get('currentSurvey'))
+  console.log(survey.value, 'survey.value')
   if (route.params.id) {
     console.log('Survey id', route.params.id)
     surveyStore.fetchSurvey(route.params.id)
@@ -238,17 +242,18 @@ function surveyQueOpt(queId, optId) {
 }
 
 function submitSurvey() {
-  // if (validate.error) {
-  //   return false
-  // }
   isSaving.value = true
   let userSurveyData = {
+    user_email: currentUser.email,
+    user_role: currentUser.role,
     user_id: currentUser.id,
+    survey_name: survey.value.survey_name,
     survey_id: survey.value.survey_id,
     surveyData: surveyData,
   }
 
   surveyStore.submitUserSurvey(userSurveyData)
+  userSurveyStore.submitUserSpecificSurvey(userSurveyData)
   console.log('Survey submit =>', userSurveyData)
 
   notificationStore.showNotification({
@@ -258,6 +263,6 @@ function submitSurvey() {
   isSaving.value = false
   userSurveyData = null
 
-  router.push('/user/surveys')
+  router.push('/user/dashboard')
 }
 </script>

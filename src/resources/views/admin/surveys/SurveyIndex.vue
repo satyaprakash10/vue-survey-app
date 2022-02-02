@@ -44,8 +44,10 @@
 
         <router-link
           to="/survey/create"
-          class="px-4 py-3 transition-all duration-300 border border-indigo-500 rounded-md hover:ease-in-out hover:bg-indigo-500 hover:bg-opacity-30 hover:shadow-lg"
+          class="flex px-4 py-3 text-white transition-all duration-300 bg-indigo-500 border border-indigo-500 rounded-md hover:text-gray-900 hover:ease-in-out hover:bg-indigo-800 hover:bg-opacity-30 hover:shadow-lg"
         >
+          <PlusIcon class="w-6 h-6 mr-3" />
+
           Add New Survey
         </router-link>
       </div>
@@ -104,17 +106,25 @@
                   <td></td>
 
                   <div class="flex justify-end">
-                    <td
-                      class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap"
-                      @click="removeSurvey(survey.survey_id)"
+                    <div
+                      class="cursor-pointer hover:bg-gray-200 hover:text-indigo-500"
                     >
-                      <TrashIcon class="w-5 h-5 mr-3" />
-                    </td>
-                    <td class="px-6 py-4 text-sm font-medium text-center">
-                      <router-link :to="`/survey/edit/${survey.survey_id}`">
-                        <PencilIcon class="w-5 h-5 mr-3" />
-                      </router-link>
-                    </td>
+                      <td
+                        class="px-6 py-4 text-sm font-medium text-center whitespace-nowrap"
+                        @click="removeSurvey(survey.survey_id)"
+                      >
+                        <TrashIcon class="w-5 h-5" />
+                      </td>
+                    </div>
+                    <div
+                      class="cursor-pointer hover:bg-gray-200 hover:text-indigo-500"
+                    >
+                      <td class="px-6 py-4 text-sm font-medium text-center">
+                        <router-link :to="`/survey/edit/${survey.survey_id}`">
+                          <PencilIcon class="w-5 h-5" />
+                        </router-link>
+                      </td>
+                    </div>
                   </div>
                 </tr>
               </tbody>
@@ -127,7 +137,7 @@
 </template>
 
 <script setup>
-import { HomeIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
+import { HomeIcon, PlusIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
 import { useSurveyStore } from '../../../scripts/stores/survey'
 
 const surveyStore = useSurveyStore()

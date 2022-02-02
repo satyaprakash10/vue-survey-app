@@ -57,7 +57,7 @@
             <router-link
               v-if="isAdmin"
               to="/dashboard"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               Dashboard
             </router-link>
@@ -65,7 +65,7 @@
             <router-link
               v-if="isAdmin"
               to="/survey"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               Survey
             </router-link>
@@ -73,7 +73,7 @@
             <router-link
               v-if="isAdmin"
               to="/users"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               Users
             </router-link>
@@ -82,7 +82,7 @@
             <router-link
               v-if="!isAdmin"
               to="/user/dashboard"
-              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
+              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               Dashboard
             </router-link>
@@ -90,7 +90,7 @@
             <router-link
               v-if="!isAdmin"
               to="/user/surveys"
-              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-gray-900"
+              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               User Survey
             </router-link>
@@ -104,28 +104,15 @@
           <Menu as="div" class="relative mt-2 ml-3">
             <div>
               <MenuButton
-                class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                class="flex text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <span class="sr-only">Open user menu</span>
                 <img
-                  class="w-8 h-8 ml-2 rounded-full"
+                  class="w-10 h-10 rounded-md"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
                 />
               </MenuButton>
-              <h3
-                v-if="isUser"
-                class="ml-2 text-base font-semibold text-gray-600"
-              >
-                User
-              </h3>
-
-              <h3
-                v-if="isAdmin"
-                class="mr-4 text-base font-semibold text-gray-600"
-              >
-                Admin
-              </h3>
             </div>
             <transition
               enter-active-class="transition duration-200 ease-out"

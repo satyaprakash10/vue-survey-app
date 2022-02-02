@@ -1,9 +1,9 @@
 import { createWebHistory, createRouter } from 'vue-router'
-
+// import auth_middleware from './resources/middleware/'
 // Auth
 import Login from './resources/views/Login.vue'
 
-// Admin
+// Admin Side
 import AdminDashboard from './resources/views/admin/AdminDashboard.vue'
 
 // Views Page
@@ -15,6 +15,7 @@ import UserSurveyView from './components/UserSurveyView.vue'
 import UsersIndex from './resources/views/admin/users/UserIndex.vue'
 import UsersCreate from './resources/views/admin/users/UserCreate.vue'
 
+// User Side
 import UserDashboard from './resources/views/user/UserDashboard.vue'
 import UserSurveyIndex from './resources/views/user/surveys/UserSurveyIndex.vue'
 import UserSurvey from './resources/views/user/surveys/UserSurvey.vue'
@@ -33,7 +34,6 @@ const routes = [
     name: 'dashboard',
     component: AdminDashboard,
   },
-
   // Surveys
   {
     path: '/survey',
@@ -80,9 +80,11 @@ const routes = [
     name: 'userSurveyIndex',
     component: UserSurveyIndex,
   },
+
+  // manage survey
   {
     path: '/user/surveys/manage-survey',
-    name: 'userSurvey',
+    name: 'userManageSurvey',
     component: UserSurvey,
   },
 
@@ -97,6 +99,13 @@ const router = createRouter({
   history: createWebHistory(),
   linkActiveClass: 'active',
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const isAdmin = localStorage.getItem('isAdmin')
+  const isUser = localStorage.getItem('isUser')
+  if (to.name !== 'login' && !isAdmin && to.name !== 'login' && !isUser) next()
+  else next()
 })
 
 export default router

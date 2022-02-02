@@ -14,13 +14,6 @@ export const useUserStore = defineStore({
         password: 'admin',
         role: 'admin',
       },
-
-      // {
-      //   id: '2',
-      //   email: 'test@user.com',
-      //   password: 'test@123',
-      //   role: 'user',
-      // },
     ],
 
     userData: {
@@ -51,9 +44,9 @@ export const useUserStore = defineStore({
     },
 
     addUser(data) {
-      if (data) {
-        this.users.push(data)
-        console.log('user data =>', data)
+      console.log('user data =>', data)
+      if (this.userData) {
+        this.users.push(this.userData)
         Ls.set('users', JSON.stringify(this.users))
       }
     },

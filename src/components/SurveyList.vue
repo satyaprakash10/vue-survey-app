@@ -1,48 +1,87 @@
 <template>
   <div>
     <div
-      v-if="surveyStore.userSurveys"
-      class="px-6 overflow-hidden divide-y divide-gray-200 rounded-lg shadow sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px"
+      class="mt-8 overflow-x-auto sm:-mx-6 lg:-mx-8"
+      v-if="surveyStore.surveys"
     >
-      <!-- login user attempted survey list -->
-      <router-link
-        :to="`/${survey.survey_id}`"
-        v-for="(survey, index) in surveyStore.userSurveys"
-        :key="index"
-        class="relative p-6 bg-white border border-gray-300 cursor-pointer group hover:bg-blue-100 hover:border hover:border-indigo-500 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
-      >
-        <div>
-          <span class="inline-flex rounded-lg ring-4 ring-white">
-            <h3 class="text-lg font-medium text-gray-900 sm:text-xl">
-              <span class="absolute inset-0" aria-hidden="true" />
-              {{ survey.survey_id }}
-            </h3>
-            <!-- <component :is="action.icon" class="w-6 h-6" aria-hidden="true" /> -->
-          </span>
-        </div>
-
-        <hr class="mt-3 text-gray-700" />
-
-        <div class="mt-6">
-          <p class="mt-2 text-sm text-gray-700">Survey {{ index }}</p>
-        </div>
-
-        <span
-          class="absolute text-gray-300 pointer-events-none top-6 right-6 group-hover:text-gray-400"
-          aria-hidden="true"
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div
+          class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
         >
-          <svg
-            class="w-6 h-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z"
-            />
-          </svg>
-        </span>
-      </router-link>
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                >
+                  Id
+                </th>
+
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase"
+                >
+                  Name
+                </th>
+
+                <th scope="col" class="relative px-6 py-3"></th>
+                <th scope="col" class="relative px-6 py-3"></th>
+                <th scope="col" class="relative px-6 py-3"></th>
+
+                <th scope="col" class="relative px-6 py-3 text-right">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(survey, surveyIdx) in surveyStore.surveys"
+                :key="surveyIdx"
+                :class="surveyIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
+                class="cursor-pointer hover:bg-gray-200"
+              >
+                <td
+                  class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+                >
+                  {{ survey.survey_id }}
+                </td>
+                <td
+                  class="px-6 py-4 text-sm font-medium text-center text-indigo-500 whitespace-nowrap"
+                >
+                  {{ survey.survey_name }}
+                </td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <div class="flex justify-end" v-if="$route.name !== 'admin'">
+                  <router-link :to="`/user/surveys/manage-survey`">
+                    <td
+                      @click="userSurvey(survey.survey_id)"
+                      class="px-6 py-4 text-sm font-medium text-center"
+                    >
+                      <PencilIcon class="w-5 h-5 mr-3" />
+                    </td>
+                  </router-link>
+                </div>
+
+                <div class="flex justify-end" v-if="$route.name !== 'user'">
+                  <router-link
+                    :to="`/admin/survey/edit/${survey.survey_id}`"
+                    v-if="$route.name === 'admin'"
+                  >
+                    <td class="px-6 py-4 text-sm font-medium text-center">
+                      <PencilIcon class="w-5 h-5 mr-3" />
+                    </td>
+                  </router-link>
+                </div>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- message if no survey attempt! -->
@@ -63,6 +102,7 @@ import {
   AcademicCapIcon,
   BadgeCheckIcon,
   CashIcon,
+  PencilIcon,
   ClockIcon,
   ReceiptRefundIcon,
   UsersIcon,

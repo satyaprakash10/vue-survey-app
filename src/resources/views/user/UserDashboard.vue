@@ -13,18 +13,20 @@
             <h1
               class="font-serif text-lg font-bold text-gray-900 sm:text-3xl lg:text-4xl"
             >
-              User Id
+              <!-- {{ authStore.currentUser.id }} -->
             </h1>
             <p
               class="mt-10 text-lg italic font-medium text-indigo-700 hover:text-gray-700 lg:text-xl"
             >
-              User Name
+              <!-- {{ userStore.role }} -->
+              Role
             </p>
             <hr class="w-full mt-2 border-gray-500 sm:mx-auto sm:max-w-2xl" />
             <p
               class="mt-2 italic font-medium text-gray-500 hover:text-gray-700 text-md lg:text-lg"
             >
-              User email
+              Email
+              <!-- {{ userStore.email }} -->
             </p>
           </div>
 
@@ -39,10 +41,18 @@
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
+                v-if="surveyStore.userSurveys.length"
                 class="font-serif text-lg font-bold text-gray-900 sm:text-3xl lg:text-4xl"
               >
-                2023
+                {{ surveyStore.userSurveys.length }}
               </h1>
+              <p
+                v-else
+                class="font-serif text-lg font-bold text-gray-900 sm:text-xl lg:text-xl"
+              >
+                No Surveys Attempted!
+              </p>
+
               <p
                 class="mt-10 text-lg italic font-medium text-indigo-700 hover:text-gray-700 lg:text-xl"
               >
@@ -62,10 +72,18 @@
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
+                v-if="surveyStore.surveys.length"
                 class="font-serif text-lg font-bold text-gray-900 hover:text-gray-700 sm:text-3xl lg:text-4xl"
               >
-                10
+                {{ surveyStore.surveys.length }}
               </h1>
+              <p
+                v-else
+                class="font-serif text-lg font-bold text-gray-900 hover:text-gray-700 sm:text-xl lg:text-xl"
+              >
+                No Surveys!
+              </p>
+
               <p
                 class="mt-10 text-xl italic font-medium text-indigo-700 hover:text-gray-900 lg:text-xl"
               >
@@ -119,40 +137,50 @@
 
       <hr class="mt-10" />
 
-      <!-- Survey list  -->
+      <!-- Surveys list  -->
       <div class="lg:max-w-7xl lg:mx-auto lg:px-6">
-        <SurveyList class="px-2 py-4 mt-8w t" />
+        <SurveyList class="px-2 py-4" />
       </div>
 
       <hr class="mt-10" />
 
-      <!-- Attempt Survey List -->
+      <!-- User Attempt Surveys List -->
       <div
-        class="px-2 mt-16 lg:mx-auto sm:mt-24 sm:flex sm:justify-between lg:max-w-7xl lg:px-6"
+        class="px-2 mt-16 lg:mx-auto sm:mt-10 sm:flex sm:justify-center lg:max-w-7xl lg:px-6"
       >
         <h1
           class="w-full px-6 py-3 mb-4 text-base font-bold text-center bg-gray-100 border-t-4 border-indigo-600 border-solid rounded-md shadow sm:mb-0 sm:max-w-sm lg:max-w-lg sm:text-xl"
         >
           Attempt Surveys
         </h1>
-
-        <div
-          class="px-4 py-2 text-lg font-bold text-center text-white bg-gray-500 border-t-4 border-black border-solid rounded-md shadow sm:text-auto sm:flex sm:justify-end border-rounded-t sm:text-2xl text-sans"
-        >
-          10
-        </div>
       </div>
-      <!-- Attempted Survey list  -->
+
+      <!-- Attempted Survey  -->
       <div class="mb-10 lg:max-w-7xl lg:mx-auto lg:px-6">
-        <AttemptedSurveyList class="px-2 py-4 mt-8w t" />
+        <AttemptedSurveyList class="px-2 py-4 mt-8" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { UserIcon, CheckCircleIcon, PlusIcon } from '@heroicons/vue/solid'
-
 import SurveyList from '../../../components/SurveyList.vue'
-import AttemptedSurveyList from '../../../components/AttemptedSurveyList.vue'
+import AttemptedSurveyList from '../../views/user/AttemptedSurveyList.vue'
+import { useAuthStore } from '../../scripts/stores/auth'
+import { useUserSurveyStore } from '../../scripts/stores/userSurvey'
+import { useSurveyStore } from '../../scripts/stores/survey'
+import { useUserStore } from '../../scripts/stores/user'
+
+const userStore = useUserStore()
+const surveyStore = useSurveyStore()
+const userSurveyStore = useUserSurveyStore()
+
+const currentUser = computed(() => {
+  return userStore.users.find((us) => {
+    console.log('us =>', us.id)
+    us.id
+  })
+})
 </script>

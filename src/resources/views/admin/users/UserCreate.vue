@@ -189,13 +189,14 @@ function submitUserData() {
       type: 'success',
       message: 'User Updated Successfully.',
     })
+    userStore.resetUserData()
   } else {
     userStore.addUser(userStore.userData)
     notificationStore.showNotification({
       type: 'success',
       message: 'User Added Successfully.',
     })
-    userStore.userData = null
+    userStore.resetUserData()
   }
 
   isSaving.value = false

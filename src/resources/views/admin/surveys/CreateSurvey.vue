@@ -278,7 +278,7 @@ import useVuelidate from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
 import { useNotificationStore } from '../../../scripts/stores/notification'
 
-//   local data variable declaration
+// local state
 let questions = reactive([
   {
     question_id: '',
@@ -337,6 +337,7 @@ function addMoreQuestion() {
     options: [],
   })
 }
+
 // add more options
 function addMoreOption(id) {
   questions[id].options.push({
@@ -347,7 +348,7 @@ function addMoreOption(id) {
 
 // remove options
 function removeOption(index) {
-  questions.options.splice(index, 1)
+  questions.map((_q) => _q.options.splice(index, 1))
 }
 
 // remove questions

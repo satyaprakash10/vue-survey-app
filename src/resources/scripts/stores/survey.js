@@ -11,12 +11,9 @@ export const useSurveyStore = defineStore({
   }),
 
   actions: {
-    fetchUserSurveys(id) {
-      console.log('id =>', this.userSurveys)
+    fetchUserSurveys() {
       this.userSurveys = JSON.parse(Ls.get('userSurveys'))
     },
-
-    // fetchUserSurvey(id) {},
 
     fetchAllSurveys() {
       this.surveys = JSON.parse(Ls.get('surveys'))
@@ -28,6 +25,7 @@ export const useSurveyStore = defineStore({
     },
 
     addSurvey(data) {
+      console.log(data)
       if (data) {
         this.surveys.push(data)
         Ls.set('surveys', JSON.stringify(this.surveys))

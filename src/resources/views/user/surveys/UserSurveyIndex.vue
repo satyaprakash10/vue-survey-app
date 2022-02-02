@@ -114,9 +114,7 @@
                     <div
                       class="cursor-pointer hover:bg-gray-300 hover:text-indigo-500"
                     >
-                      <router-link
-                        :to="`/user/surveys/${survey.survey_id}/manage-survey`"
-                      >
+                      <router-link :to="`/user/surveys/manage-survey`">
                         <td
                           @click="userSurvey(survey.survey_id)"
                           class="px-6 py-4 text-sm font-medium text-center"

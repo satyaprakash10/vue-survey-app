@@ -1,19 +1,19 @@
 <template>
   <div>
+    <!-- User side -->
     <div
-      v-if="surveyStore.userSurveys"
-      class="px-6 overflow-hidden divide-y divide-gray-200 rounded-lg shadow sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px"
+      v-if="userSurveyStore.userSpecificSurveys"
+      class="px-6 py-6 overflow-hidden bg-gray-100 divide-y divide-gray-200 rounded-lg shadow sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px"
     >
       <!-- login user attempted survey list -->
-      <router-link
-        :to="`/${survey.survey_id}`"
-        v-for="(survey, index) in surveyStore.userSurveys"
+      <div
+        v-for="(survey, index) in userSurveyStore.userSpecificSurveys"
         :key="index"
-        class="relative p-6 bg-white border border-gray-300 cursor-pointer group hover:bg-blue-100 hover:border hover:border-indigo-500 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
+        class="relative p-6 bg-white border-gray-300 cursor-pointer group hover:shadow-2xl hover:bg-blue-100 hover:border focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
       >
         <div>
           <span class="inline-flex rounded-lg ring-4 ring-white">
-            <h3 class="text-lg font-medium text-gray-900 sm:text-xl">
+            <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
               <span class="absolute inset-0" aria-hidden="true" />
               {{ survey.survey_id }}
             </h3>
@@ -24,7 +24,9 @@
         <hr class="mt-3 text-gray-700" />
 
         <div class="mt-6">
-          <p class="mt-2 text-sm text-gray-700">Survey {{ index }}</p>
+          <p class="mt-2 text-sm font-semibold text-gray-700">
+            {{ survey.survey_name }}
+          </p>
         </div>
 
         <span
@@ -42,7 +44,7 @@
             />
           </svg>
         </span>
-      </router-link>
+      </div>
     </div>
 
     <!-- message if no survey attempt! -->
@@ -69,12 +71,10 @@ import {
   ExclamationIcon,
 } from '@heroicons/vue/outline'
 
-import { useSurveyStore } from '../resources/scripts/stores/survey'
-import { useUserSurveyStore } from '../resources/scripts/stores/userSurvey'
+import { useSurveyStore } from '../../scripts/stores/survey'
+import { useUserSurveyStore } from '../../scripts/stores/userSurvey'
 
 const userSurveyStore = useUserSurveyStore()
-const surveyStore = useSurveyStore()
 
-surveyStore.fetchAllSurveys()
-surveyStore.fetchUserSurveys()
+userSurveyStore.fetchUserSpecificSurvey()
 </script>

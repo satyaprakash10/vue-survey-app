@@ -25,6 +25,7 @@ export const useAuthStore = defineStore({
     userLogout() {
       Ls.remove('isUser')
       Ls.remove('currentUser')
+      // Ls.remove('userSpecificSurveys')
     },
   },
 })
