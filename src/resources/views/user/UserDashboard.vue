@@ -13,20 +13,22 @@
             <h1
               class="font-serif text-lg font-bold text-gray-900 sm:text-3xl lg:text-4xl"
             >
-              <!-- {{ authStore.currentUser.id }} -->
+              {{ currentUser.id }}
             </h1>
             <p
               class="mt-10 text-lg italic font-medium text-indigo-700 hover:text-gray-700 lg:text-xl"
             >
-              <!-- {{ userStore.role }} -->
-              Role
+              Role :
+              <span class="font-medium text-gray-900 uppercase">
+                {{ currentUser.role }}
+              </span>
             </p>
             <hr class="w-full mt-2 border-gray-500 sm:mx-auto sm:max-w-2xl" />
             <p
               class="mt-2 italic font-medium text-gray-500 hover:text-gray-700 text-md lg:text-lg"
             >
               Email
-              <!-- {{ userStore.email }} -->
+              {{ currentUser.email }}
             </p>
           </div>
 
@@ -41,17 +43,16 @@
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
-                v-if="surveyStore.userSurveys.length"
                 class="font-serif text-lg font-bold text-gray-900 sm:text-3xl lg:text-4xl"
               >
                 {{ surveyStore.userSurveys.length }}
               </h1>
-              <p
+              <!-- <p
                 v-else
                 class="font-serif text-lg font-bold text-gray-900 sm:text-xl lg:text-xl"
               >
                 No Surveys Attempted!
-              </p>
+              </p> -->
 
               <p
                 class="mt-10 text-lg italic font-medium text-indigo-700 hover:text-gray-700 lg:text-xl"
@@ -72,17 +73,16 @@
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
-                v-if="surveyStore.surveys.length"
                 class="font-serif text-lg font-bold text-gray-900 hover:text-gray-700 sm:text-3xl lg:text-4xl"
               >
                 {{ surveyStore.surveys.length }}
               </h1>
-              <p
+              <!-- <p
                 v-else
                 class="font-serif text-lg font-bold text-gray-900 hover:text-gray-700 sm:text-xl lg:text-xl"
               >
                 No Surveys!
-              </p>
+              </p> -->
 
               <p
                 class="mt-10 text-xl italic font-medium text-indigo-700 hover:text-gray-900 lg:text-xl"
@@ -164,7 +164,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watchEffect, ref } from 'vue'
 import { UserIcon, CheckCircleIcon, PlusIcon } from '@heroicons/vue/solid'
 import SurveyList from '../../../components/SurveyList.vue'
 import AttemptedSurveyList from '../../views/user/AttemptedSurveyList.vue'
@@ -172,15 +172,15 @@ import { useAuthStore } from '../../scripts/stores/auth'
 import { useUserSurveyStore } from '../../scripts/stores/userSurvey'
 import { useSurveyStore } from '../../scripts/stores/survey'
 import { useUserStore } from '../../scripts/stores/user'
+import Ls from '../../../services/ls'
 
 const userStore = useUserStore()
 const surveyStore = useSurveyStore()
 const userSurveyStore = useUserSurveyStore()
 
-const currentUser = computed(() => {
-  return userStore.users.find((us) => {
-    console.log('us =>', us.id)
-    us.id
-  })
+const currentUser = ref('')
+
+watchEffect(() => {
+  currentUser.value = JSON.parse(Ls.get('currentUser'))
 })
 </script>

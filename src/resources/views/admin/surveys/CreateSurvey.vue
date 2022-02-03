@@ -318,8 +318,8 @@ const v$ = useVuelidate(
 //created
 if (route.params.id) {
   surveyStore.fetchSurvey(route.params.id)
-
   survey_id.value = surveyStore.currentSurvey.survey_id
+  console.log('current survey =>', surveyStore.currentSurvey)
   survey_name.value = surveyStore.currentSurvey.survey_name
   questions = surveyStore.currentSurvey.questions
 }
@@ -334,7 +334,12 @@ function addMoreQuestion() {
   questions.push({
     question_id: '',
     question_name: '',
-    options: [],
+    options: [
+      {
+        option_id: '',
+        option_text: '',
+      },
+    ],
   })
 }
 
@@ -366,7 +371,6 @@ function submitSurveyData() {
     survey_name: survey_name.value,
     questions: questions,
   }
-  console.log('add survey =>', surveyData)
   isSaving.value = true
   if (route.params.id) {
     surveyStore.updateSurvey(surveyData)

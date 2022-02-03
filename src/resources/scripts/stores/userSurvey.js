@@ -28,7 +28,7 @@ export const useUserSurveyStore = defineStore({
 
     submitUserSpecificSurvey(data) {
       if (data) {
-        this.userSpecificSurveys.push(data)
+        this?.userSpecificSurveys?.push(data)
         Ls.set('userSpecificSurveys', JSON.stringify(this.userSpecificSurveys))
       }
     },

@@ -1,25 +1,33 @@
 <template>
   <div>
-    <div class="px-6 py-2 mx-auto max-w-7xl">
+    <!-- Dashboard starts -->
+    <div class="px-6 py-2 mb-10">
       <!-- User cards -->
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        class="grid grid-cols-1 gap-4 sm:max-w-7xl sm:mx-auto lg:px-6 sm:grid-cols-1 lg:grid-cols-3"
+      >
         <div
+          v-if="currentUser"
           class="flex justify-between px-4 py-4 mt-4 bg-gray-100 border-t-8 border-indigo-500 border-solid rounded-md shadow cursor-pointer hover:bg-blue-200 hover:shadow-2xl"
         >
           <div class="px-4">
             <h1
-              class="font-serif text-lg font-extrabold text-gray-900 sm:text-3xl lg:text-4xl"
+              class="font-serif text-lg font-bold text-gray-900 sm:text-3xl lg:text-4xl"
             >
-              <!-- {{ authStore.currentUser }} -->
-              User Id
+              {{ currentUser.id }}
             </h1>
-
+            <p
+              class="mt-10 text-lg italic font-medium text-indigo-700 hover:text-gray-700 lg:text-xl"
+            >
+              {{ currentUser.role }}
+              Role
+            </p>
             <hr class="w-full mt-2 border-gray-500 sm:mx-auto sm:max-w-2xl" />
             <p
-              class="mt-12 italic font-medium text-gray-500 hover:text-gray-700 text-md lg:text-lg"
+              class="mt-2 italic font-medium text-gray-500 hover:text-gray-700 text-md lg:text-lg"
             >
               Email
-              <!-- {{ userStore.currentUser.email }} -->
+              {{ currentUser.email }}
             </p>
           </div>
 
@@ -28,24 +36,24 @@
           />
         </div>
 
-        <!--total attempt surveys card -->
         <div
           class="px-4 py-4 mt-4 bg-gray-100 border-t-8 border-orange-500 border-solid rounded-md shadow cursor-pointer hover:bg-orange-200 hover:shadow-2xl"
         >
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
-                v-if="surveyStore.userSurveys.length"
-                class="font-serif text-lg font-extrabold text-gray-900 sm:text-3xl lg:text-4xl"
+                v-if="surveyStore.userSurveys"
+                class="font-serif text-lg font-bold text-gray-900 sm:text-3xl lg:text-4xl"
               >
                 {{ surveyStore.userSurveys.length }}
               </h1>
               <p
                 v-else
-                class="font-serif text-lg font-extrabold text-gray-900 sm:text-xl lg:text-xl"
+                class="font-serif text-lg font-bold text-gray-900 sm:text-xl lg:text-xl"
               >
                 No Surveys Attempted!
               </p>
+
               <p
                 class="mt-10 text-lg italic font-medium text-indigo-700 hover:text-gray-700 lg:text-xl"
               >
@@ -59,24 +67,24 @@
           </div>
         </div>
 
-        <!-- total surveys card -->
         <div
           class="px-4 py-4 mt-4 bg-gray-100 border-t-8 border-yellow-500 border-solid rounded-md shadow cursor-pointer hover:bg-yellow-200 hover:shadow-2xl"
         >
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
-                v-if="surveyStore.surveys.length"
-                class="font-serif text-lg font-extrabold text-gray-900 sm:text-3xl lg:text-4xl"
+                v-if="surveyStore.surveys"
+                class="font-serif text-lg font-bold text-gray-900 hover:text-gray-700 sm:text-3xl lg:text-4xl"
               >
-                {{ surveyStore.userSurveys.length }}
+                {{ surveyStore.surveys.length }}
               </h1>
               <p
                 v-else
-                class="font-serif text-lg font-extrabold text-gray-900 sm:text-xl lg:text-xl"
+                class="font-serif text-lg font-bold text-gray-900 hover:text-gray-700 sm:text-xl lg:text-xl"
               >
-                NO Surveys!
+                No Surveys!
               </p>
+
               <p
                 class="mt-10 text-xl italic font-medium text-indigo-700 hover:text-gray-900 lg:text-xl"
               >
@@ -108,31 +116,9 @@
         </div>
       </div>
 
-      <!-- Users List -->
-      <div class="px-2 mt-12 sm:mt-20 lg:flex lg:justify-between">
-        <h1
-          class="w-full px-6 py-2 mb-4 text-base font-bold text-center bg-gray-100 border-t-4 border-indigo-500 border-solid rounded-md shadow sm:mb-0 lg:max-w-lg sm:text-xl"
-        >
-          Users
-        </h1>
-        <router-link
-          to="/users/create"
-          class="flex justify-center w-full px-4 py-2 mt-1 border border-indigo-500 rounded-md lg:w-auto hover:bg-indigo-200 hover:shadow-md"
-        >
-          <PlusIcon class="w-6 h-6 mr-3 border border-indigo-500 rounded-md" />
-
-          New User
-        </router-link>
-      </div>
-
-      <hr class="mt-10" />
-      <UserList class="px-2 py-4" />
-
-      <hr class="mt-10" />
-
       <!-- Survey List -->
       <div
-        class="px-2 mt-16 lg:mx-auto sm:mt-10 sm:flex sm:justify-between lg:max-w-7xl"
+        class="px-2 mt-16 lg:mx-auto sm:mt-24 sm:flex sm:justify-between lg:max-w-7xl lg:px-6"
       >
         <h1
           class="w-full px-6 py-2 mb-4 text-base font-bold text-center bg-gray-100 border-t-4 border-indigo-600 border-solid rounded-md shadow sm:mb-0 sm:max-w-sm lg:max-w-lg sm:text-xl"
@@ -140,56 +126,62 @@
           Surveys
         </h1>
         <router-link
-          to="/survey/create"
-          class="flex justify-center w-full px-4 py-2 mt-1 border border-indigo-500 rounded-md lg:w-auto hover:bg-indigo-200 hover:shadow-md"
+          to="/user/surveys"
+          class="flex items-center justify-center w-full px-4 py-2 mt-1 border border-indigo-500 rounded-md sm:max-w-xs lg:flex-none lg:w-auto hover:bg-indigo-200 hover:shadow-md"
         >
-          <PlusIcon class="w-6 h-6 mr-3 border border-indigo-500 rounded-md" />
-
-          New Survey
+          <PlusIcon
+            class="w-6 h-6 mr-4 text-indigo-500 border border-indigo-500"
+          />
+          Attained Survey
         </router-link>
       </div>
 
       <hr class="mt-10" />
 
       <!-- Surveys list  -->
-      <div class="">
+      <div class="lg:max-w-7xl lg:mx-auto lg:px-6">
         <SurveyList class="px-2 py-4" />
       </div>
 
       <hr class="mt-10" />
 
-      <!-- Attempt Surveys List -->
-      <div class="px-2 sm:mt-10 lg:flex lg:justify-center">
+      <!-- User Attempt Surveys List -->
+      <div
+        class="px-2 mt-16 lg:mx-auto sm:mt-10 sm:flex sm:justify-center lg:max-w-7xl lg:px-6"
+      >
         <h1
-          class="w-full px-6 py-2 mb-4 text-base font-bold text-center bg-gray-100 border-t-4 border-indigo-500 border-solid rounded-md shadow sm:mb-0 lg:max-w-lg sm:text-xl"
+          class="w-full px-6 py-3 mb-4 text-base font-bold text-center bg-gray-100 border-t-4 border-indigo-600 border-solid rounded-md shadow sm:mb-0 sm:max-w-sm lg:max-w-lg sm:text-xl"
         >
-          Attempted Surveys
+          Attempt Surveys
         </h1>
       </div>
 
-      <div class="mb-10">
-        <AttemptedSurveyList class="px-2 py-4 mt-2" />
+      <!-- Attempted Survey  -->
+      <div class="mb-10 lg:max-w-7xl lg:mx-auto lg:px-6">
+        <AttemptedSurveyList class="px-2 py-4 mt-8" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { watchEffect, ref } from 'vue'
+import { UserIcon, CheckCircleIcon, PlusIcon } from '@heroicons/vue/solid'
 import SurveyList from '../../../components/SurveyList.vue'
-import AttemptedSurveyList from './AttemptedSurveyList.vue'
-import UserList from '../../../components/UserList.vue'
-import { UserIcon, PlusIcon, CheckCircleIcon } from '@heroicons/vue/solid'
-import { useUserStore } from '../../scripts/stores/user'
+import AttemptedSurveyList from '../../views/user/AttemptedSurveyList.vue'
+import { useAuthStore } from '../../scripts/stores/auth'
 import { useUserSurveyStore } from '../../scripts/stores/userSurvey'
 import { useSurveyStore } from '../../scripts/stores/survey'
-import { useAuthStore } from '../../scripts/stores/auth'
+import { useUserStore } from '../../scripts/stores/user'
 import Ls from '../../../services/ls'
 
 const userStore = useUserStore()
 const surveyStore = useSurveyStore()
-const authStore = useAuthStore()
 const userSurveyStore = useUserSurveyStore()
-const user = userStore.user
-authStore.getCurrentUser()
-Ls.set('currentUser', JSON.stringify(user))
+
+const currentUser = ref('')
+
+watchEffect(() => {
+  currentUser.value = JSON.parse(Ls.get('currentUser'))
+})
 </script>

@@ -60,8 +60,12 @@
 <script setup>
 import { MailIcon, UsersIcon, PhoneIcon } from '@heroicons/vue/solid'
 import { useUserStore } from '../../src/resources/scripts/stores/user'
-
+import { computed } from 'vue'
 const userStore = useUserStore()
 
 userStore.fetchAllUsers()
+
+const users = computed(() => {
+  return userStore.users.splice(0, 6)
+})
 </script>

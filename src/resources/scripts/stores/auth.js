@@ -13,8 +13,12 @@ export const useAuthStore = defineStore({
     getCurrentUser(data) {
       if (data) {
         const users = JSON.parse(Ls.get('users'))
-        const user = users.find((_u) => _u.email === data.email)
-        Ls.set('currentUser', JSON.stringify(user))
+        if (users) {
+          const user = users.find((_u) => _u.email === data.email)
+          Ls.set('currentUser', JSON.stringify(user))
+        } else {
+          Ls.set('currentUser', JSON.stringify(data))
+        }
       }
     },
 
@@ -25,7 +29,7 @@ export const useAuthStore = defineStore({
     userLogout() {
       Ls.remove('isUser')
       Ls.remove('currentUser')
-      // Ls.remove('userSpecificSurveys')
+      Ls.remove('userSpecificSurveys')
     },
   },
 })
