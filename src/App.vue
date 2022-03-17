@@ -11,7 +11,7 @@
     />
 
     <!-- Main -->
-    <div class="mt-12">
+    <div class="relative mt-28">
       <router-view />
     </div>
   </div>

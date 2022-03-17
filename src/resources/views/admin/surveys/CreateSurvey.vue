@@ -292,8 +292,8 @@ let questions = reactive([
   },
 ])
 
-let survey_id = ref('')
-let survey_name = ref('')
+const survey_id = ref('')
+const survey_name = ref('')
 
 const surveyStore = useSurveyStore()
 const notificationStore = useNotificationStore()
@@ -318,8 +318,8 @@ const v$ = useVuelidate(
 //created
 if (route.params.id) {
   surveyStore.fetchSurvey(route.params.id)
-
   survey_id.value = surveyStore.currentSurvey.survey_id
+  console.log('current survey =>', surveyStore.currentSurvey)
   survey_name.value = surveyStore.currentSurvey.survey_name
   questions = surveyStore.currentSurvey.questions
 }
@@ -334,7 +334,12 @@ function addMoreQuestion() {
   questions.push({
     question_id: '',
     question_name: '',
-    options: [],
+    options: [
+      {
+        option_id: '',
+        option_text: '',
+      },
+    ],
   })
 }
 
@@ -357,16 +362,13 @@ function removeQuestions(index) {
 }
 
 function submitSurveyData() {
-  // if (validate.error) {
-  //   return false
-  // }
-
   let surveyData = {
     survey_id: survey_id.value,
     survey_name: survey_name.value,
     questions: questions,
   }
-  console.log('add survey =>', surveyData)
+
+  console.log('surveyData =>', surveyData)
   isSaving.value = true
   if (route.params.id) {
     surveyStore.updateSurvey(surveyData)
@@ -376,6 +378,7 @@ function submitSurveyData() {
     })
   } else {
     surveyStore.addSurvey(surveyData)
+    console.log('surveyData =>', surveyData)
     notificationStore.showNotification({
       type: 'success',
       message: 'Survey Added successfully.',

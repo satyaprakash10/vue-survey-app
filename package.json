@@ -9,14 +9,22 @@
   "dependencies": {
     "@headlessui/vue": "^1.4.3",
     "@heroicons/vue": "^1.0.5",
+    "@vueform/multiselect": "^2.3.3",
     "@vuelidate/core": "^2.0.0-alpha.34",
     "@vuelidate/validators": "^2.0.0-alpha.26",
     "axios": "^0.25.0",
+    "draggable": "^4.2.0",
     "heroicons": "^1.0.5",
     "pinia": "^2.0.10",
     "vue": "^3.2.25",
+    "vue-draggable-next": "^2.1.1",
     "vue-dynamic-forms": "^1.1.0",
-    "vue-router": "^4.0.12"
+    "vue-feather-icons": "^5.1.0",
+    "vue-route-middleware": "^1.0.7",
+    "vue-router": "^4.0.12",
+    "vue3-draggable": "^2.0.9",
+    "vue3-form-render-vuedraggable": "^4.0.1-beta.1",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

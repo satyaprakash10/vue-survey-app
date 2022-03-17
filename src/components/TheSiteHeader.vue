@@ -1,11 +1,15 @@
 <template>
-  <Disclosure as="nav" class="shadow-lg bg-indigo-50" v-slot="{ open }">
+  <Disclosure
+    as="nav"
+    class="fixed top-0 z-10 text-white bg-gray-900 shadow-2xl"
+    v-slot="{ open }"
+  >
     <div class="px-2 py-0 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div class="relative flex justify-between h-24">
+      <div class="relative flex justify-between h-20">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
           <!-- Mobile Toggle button -->
           <DisclosureButton
-            class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            class="inline-flex items-center justify-center text-white rounded-md hover:text-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
           >
             <span class="sr-only">Open main menu</span>
             <MenuIcon v-if="!open" class="block w-6 h-6" aria-hidden="true" />
@@ -18,14 +22,14 @@
           class="flex items-center justify-center flex-shrink-0 hidden mt-6 transition-all duration-100 transform border-b-2 border-blue-500 sm:block lg:justify-start rounded-b-md hover:border-none"
         >
           <a
-            href="#"
+            href="/board"
             class="text-base italic font-bold text-blue-500 lg:text-4xl"
           >
             Vue
             <span
-              class="ml-3 font-serif text-base font-semibold text-gray-600 sm:text-xl"
+              class="ml-3 font-serif text-base font-semibold text-white sm:text-2xl"
             >
-              Survey
+              Todo App
             </span>
           </a>
         </div>
@@ -54,35 +58,42 @@
           <!-- Menu Items -->
           <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
             <!-- Admin side -->
+            <!-- v-if="isAdmin" -->
             <router-link
-              v-if="isAdmin"
-              to="/dashboard"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
+              to="/board"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
             >
-              Dashboard
+              Board
             </router-link>
 
             <router-link
-              v-if="isAdmin"
-              to="/survey"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
+              to="/todo"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
             >
-              Survey
+              Todo
             </router-link>
 
             <router-link
               v-if="isAdmin"
               to="/users"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               Users
             </router-link>
+
+            <!-- <router-link
+              v-if="isAdmin"
+              to="/surveys"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
+            >
+              Surveys
+            </router-link> -->
 
             <!-- User side  -->
             <router-link
               v-if="!isAdmin"
               to="/user/dashboard"
-              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
+              class="inline-flex items-center px-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               Dashboard
             </router-link>
@@ -90,7 +101,7 @@
             <router-link
               v-if="!isAdmin"
               to="/user/surveys"
-              class="inline-flex items-center px-1 text-sm font-medium text-gray-500 border-transparent hover:text-indigo-500 hover:font-semibold"
+              class="inline-flex items-center px-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
             >
               User Survey
             </router-link>
@@ -114,6 +125,7 @@
                 />
               </MenuButton>
             </div>
+
             <transition
               enter-active-class="transition duration-200 ease-out"
               enter-from-class="transform scale-95 opacity-0"
@@ -150,40 +162,48 @@
         <DisclosureButton
           v-if="isAdmin"
           as="a"
-          href="/dashboard"
+          href="/board"
           class="block py-2 pl-3 pr-4 text-base font-medium text-indigo-700 border-l-4 border-indigo-500 bg-indigo-50"
         >
-          Dashboard
+          Board
         </DisclosureButton>
-        <DisclosureButton
+        <!-- <DisclosureButton
           v-if="isAdmin"
           as="a"
           href="/surveys"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-white border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
           Survey
-        </DisclosureButton>
+        </DisclosureButton> -->
         <DisclosureButton
           v-if="isAdmin"
           as="a"
           href="/users"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-white border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
           Users
+        </DisclosureButton>
+        <DisclosureButton
+          v-if="isAdmin"
+          as="a"
+          href="/todo"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-white border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
+        >
+          Todo
         </DisclosureButton>
         <DisclosureButton
           v-if="isUser"
           as="a"
           href="/user/dashboard"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-white border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
-          Dashboard
+          Board
         </DisclosureButton>
         <DisclosureButton
           v-if="isUser"
           as="a"
           href="/user/surveys/user-survey"
-          class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
+          class="block py-2 pl-3 pr-4 text-base font-medium text-white border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
           User Survey
         </DisclosureButton>

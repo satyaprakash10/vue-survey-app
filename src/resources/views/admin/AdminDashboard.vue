@@ -171,12 +171,14 @@
         <AttemptedSurveyList class="px-2 py-4 mt-2" />
       </div>
     </div>
+
+    <!-- DEMO -->
   </div>
 </template>
 
 <script setup>
+import AttemptedSurveyList from '../../views/admin/AttemptedSurveyList.vue'
 import SurveyList from '../../../components/SurveyList.vue'
-import AttemptedSurveyList from './AttemptedSurveyList.vue'
 import UserList from '../../../components/UserList.vue'
 import { UserIcon, PlusIcon, CheckCircleIcon } from '@heroicons/vue/solid'
 import { useUserStore } from '../../scripts/stores/user'

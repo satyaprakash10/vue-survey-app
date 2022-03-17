@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="px-6 py-4 mx-auto mt-12 max-w-7xl">
-      <!-- Breadcrumb -->
+      <!-- Breadcrumb Start-->
       <div class="flex items-center justify-between">
         <nav class="" aria-label="Breadcrumb">
           <h1 class="mb-6 text-lg font-bold sm:text-xl">Surveys</h1>
@@ -50,6 +50,39 @@
 
           Add New Survey
         </router-link>
+      </div>
+      <!-- Breadcrumb end-->
+
+      <!-- KANBAN BOARD Draggable DEMO -->
+      <div class="flex justify-center">
+        <div class="flex min-h-screen py-12 overflow-x-scroll">
+          <div
+            v-for="column in columns"
+            :key="column.title"
+            class="px-3 py-3 mr-4 bg-gray-100 rounded rounded-lg column-width"
+          >
+            <p
+              class="font-sans text-sm font-semibold tracking-wide text-gray-700"
+            >
+              {{ column.title }}
+            </p>
+            <draggable
+              :list="column.tasks"
+              :animation="500"
+              ghost-class="ghost-card"
+              group="tasks"
+            >
+              <!-- Each element from here will be draggable and animated. Note :key is very important here to be unique both for draggable and animations to be smooth & consistent. -->
+              <base-task-card
+                v-for="task in column.tasks"
+                :key="task.id"
+                :task="task"
+                class="mt-3 cursor-move"
+              ></base-task-card>
+              <!-- </transition-group> -->
+            </draggable>
+          </div>
+        </div>
       </div>
 
       <!-- Surveys Table Lists -->
@@ -139,6 +172,127 @@
 <script setup>
 import { HomeIcon, PlusIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
 import { useSurveyStore } from '../../../scripts/stores/survey'
+import BaseTaskCard from '../../../../components/base/BaseTaskCard.vue'
+import draggable from 'vuedraggable'
+
+import { reactive } from 'vue'
+
+const columns = reactive([
+  {
+    title: 'Backlog',
+    tasks: [
+      {
+        id: 1,
+        title: 'Add discount code to checkout page',
+        date: 'Sep 14',
+        type: 'Feature Request',
+      },
+      {
+        id: 2,
+        title: 'Provide documentation on integrations',
+        date: 'Sep 12',
+      },
+      {
+        id: 3,
+        title: 'Design shopping cart dropdown',
+        date: 'Sep 9',
+        type: 'Design',
+      },
+      {
+        id: 4,
+        title: 'Add discount code to checkout page',
+        date: 'Sep 14',
+        type: 'Feature Request',
+      },
+      {
+        id: 5,
+        title: 'Test checkout flow',
+        date: 'Sep 15',
+        type: 'QA',
+      },
+    ],
+  },
+  {
+    title: 'In Progress',
+    tasks: [
+      {
+        id: 6,
+        title: 'Design shopping cart dropdown',
+        date: 'Sep 9',
+        type: 'Design',
+      },
+      {
+        id: 7,
+        title: 'Add discount code to checkout page',
+        date: 'Sep 14',
+        type: 'Feature Request',
+      },
+      {
+        id: 8,
+        title: 'Provide documentation on integrations',
+        date: 'Sep 12',
+        type: 'Backend',
+      },
+    ],
+  },
+  {
+    title: 'Review',
+    tasks: [
+      {
+        id: 9,
+        title: 'Provide documentation on integrations',
+        date: 'Sep 12',
+      },
+      {
+        id: 10,
+        title: 'Design shopping cart dropdown',
+        date: 'Sep 9',
+        type: 'Design',
+      },
+      {
+        id: 11,
+        title: 'Add discount code to checkout page',
+        date: 'Sep 14',
+        type: 'Feature Request',
+      },
+      {
+        id: 12,
+        title: 'Design shopping cart dropdown',
+        date: 'Sep 9',
+        type: 'Design',
+      },
+      {
+        id: 13,
+        title: 'Add discount code to checkout page',
+        date: 'Sep 14',
+        type: 'Feature Request',
+      },
+    ],
+  },
+  {
+    title: 'Done',
+    tasks: [
+      {
+        id: 14,
+        title: 'Add discount code to checkout page',
+        date: 'Sep 14',
+        type: 'Feature Request',
+      },
+      {
+        id: 15,
+        title: 'Design shopping cart dropdown',
+        date: 'Sep 9',
+        type: 'Design',
+      },
+      {
+        id: 16,
+        title: 'Add discount code to checkout page',
+        date: 'Sep 14',
+        type: 'Feature Request',
+      },
+    ],
+  },
+])
 
 const surveyStore = useSurveyStore()
 
@@ -148,3 +302,15 @@ function removeSurvey(id) {
   surveyStore.deleteSurvey(id)
 }
 </script>
+
+<style scoped>
+.column-width {
+  min-width: 320px;
+  width: 320px;
+}
+.ghost-card {
+  opacity: 0.5;
+  background: #f7fafc;
+  border: 1px solid #4299e1;
+}
+</style>

@@ -1,5 +1,6 @@
 <template>
   <div class="px-6 py-2">
+    {{ userStore.users }}
     <ul
       v-if="userStore.users"
       role="list"
@@ -60,8 +61,12 @@
 <script setup>
 import { MailIcon, UsersIcon, PhoneIcon } from '@heroicons/vue/solid'
 import { useUserStore } from '../../src/resources/scripts/stores/user'
-
+import { computed } from 'vue'
 const userStore = useUserStore()
 
 userStore.fetchAllUsers()
+
+// const users = computed(() => {
+//   return userStore.users
+// })
 </script>

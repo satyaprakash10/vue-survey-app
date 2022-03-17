@@ -44,9 +44,8 @@ export const useUserStore = defineStore({
     },
 
     addUser(data) {
-      console.log('user data =>', data)
-      if (this.userData) {
-        this.users.push(this.userData)
+      if (data) {
+        this.users.push(data)
         Ls.set('users', JSON.stringify(this.users))
       }
     },

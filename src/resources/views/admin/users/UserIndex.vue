@@ -51,8 +51,35 @@
         </router-link>
       </div>
 
+      <!-- Total Users Analysis  -->
+      <!-- <div class="flex items-center justify-between mx-auto mt-6 max-7-xl">
+        <h1
+          v-if="userStore.users.length"
+          class="text-sm font-normal text-gray-900 sm:text-lg"
+        >
+          Total Users:
+          <span class="text-sm font-semibold sm:text-lg">
+            {{ userStore.users.length }}
+          </span>
+          out of
+          <span class="text-sm font-semibold sm:text-lg">
+            {{ userStore.users.length }}
+          </span>
+        </h1>
+
+        <TrashIcon
+          @click="deleteAllUsers"
+          class="w-8 h-8 cursor-pointer hover:text-indigo-600"
+        />
+      </div> -->
+
+      <hr class="mt-6" />
+
       <!-- Surveys Table Lists -->
-      <div class="mt-8 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div
+        class="mt-8 overflow-x-auto sm:-mx-6 lg:-mx-8"
+        v-if="userStore.users"
+      >
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div
             class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
@@ -133,6 +160,15 @@
           </div>
         </div>
       </div>
+
+      <!-- message if no users ! -->
+      <div
+        v-else
+        class="w-full px-5 py-6 mt-4 mb-10 font-serif text-lg font-semibold text-center text-gray-500 bg-indigo-100 rounded-md shadow-lg sm:text-xl lg:text-2xl"
+      >
+        <UsersIcon class="w-10 h-10 mx-auto mb-4 text-center text-blue-500" />
+        No Users yet!
+      </div>
     </div>
   </div>
 </template>
@@ -154,5 +190,8 @@ function removeUser(id) {
     type: 'success',
     message: 'User Deleted Successfully.',
   })
+}
+function deleteAllUsers(index) {
+  userStore.users.splice(index, 1)
 }
 </script>

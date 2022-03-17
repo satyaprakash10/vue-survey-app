@@ -5,7 +5,7 @@
         <h1
           class="flex justify-center text-lg italic font-bold text-indigo-800 sm:text-2xl"
         >
-          Survey
+          Todo
 
           <span
             class="mt-1 ml-2 font-serif text-lg font-semibold text-orange-800"
@@ -93,7 +93,7 @@ const authStore = useAuthStore()
 function submitLoginData() {
   try {
     if (loginData.email === 'admin@gmail.com') {
-      router.push('/dashboard')
+      router.push('/board')
       Ls.set('isAdmin', JSON.stringify(true))
     } else {
       router.push('/user/dashboard')

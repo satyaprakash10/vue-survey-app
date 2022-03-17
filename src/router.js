@@ -4,7 +4,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import Login from './resources/views/Login.vue'
 
 // Admin Side
-import AdminDashboard from './resources/views/admin/AdminDashboard.vue'
+import Board from './resources/views/Board.vue'
 
 // Views Page
 import SurveyIndex from './resources/views/admin/surveys/SurveyIndex.vue'
@@ -20,6 +20,10 @@ import UserDashboard from './resources/views/user/UserDashboard.vue'
 import UserSurveyIndex from './resources/views/user/surveys/UserSurveyIndex.vue'
 import UserSurvey from './resources/views/user/surveys/UserSurvey.vue'
 
+// Todo App
+import TodoIndex from './resources/views/todo/TodoIndex.vue'
+import TodoCreate from './resources/views/todo/TodoCreate.vue'
+
 // Login
 const routes = [
   {
@@ -30,23 +34,23 @@ const routes = [
 
   // Admin section
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: AdminDashboard,
+    path: '/board',
+    name: 'board',
+    component: Board,
   },
   // Surveys
   {
-    path: '/survey',
+    path: '/surveys',
     name: 'survey',
     component: SurveyIndex,
   },
   {
-    path: '/survey/create',
+    path: '/surveys/create',
     name: 'CreateSurvey',
     component: CreateSurvey,
   },
   {
-    path: '/survey/edit/:id',
+    path: '/surveys/edit/:id',
     name: 'EditSurvey',
     component: CreateSurvey,
   },
@@ -93,6 +97,23 @@ const routes = [
     name: 'userSurvey',
     component: UserSurveyView,
   },
+
+  //  Todo
+  {
+    path: '/todo',
+    name: 'todo index',
+    component: TodoIndex,
+  },
+  {
+    path: '/todo/todo-create',
+    name: 'todo create',
+    component: TodoCreate,
+  },
+  {
+    path: '/todo/todo-create/edit/:id',
+    name: 'todo edit',
+    component: TodoCreate,
+  },
 ]
 
 const router = createRouter({
@@ -104,7 +125,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAdmin = localStorage.getItem('isAdmin')
   const isUser = localStorage.getItem('isUser')
-  if (to.name !== 'login' && !isAdmin && to.name !== 'login' && !isUser) next()
+  if (to.name !== 'login' && !isAdmin && to.name !== 'login' && !isUser)
+    next('/')
   else next()
 })
 

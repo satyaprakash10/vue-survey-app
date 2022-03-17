@@ -25,9 +25,9 @@ export const useSurveyStore = defineStore({
     },
 
     addSurvey(data) {
-      console.log(data)
       if (data) {
         this.surveys.push(data)
+
         Ls.set('surveys', JSON.stringify(this.surveys))
       }
     },

@@ -38,7 +38,7 @@
           <p class="mt-3 text-base font-semibold text-gray-900">
             Role:
             <span
-              class="ml-4 font-normal text-gray-700"
+              class="ml-4 font-semibold text-gray-700 uppercase"
               v-if="userSurvey.user_role"
             >
               {{ userSurvey.user_role }}
@@ -68,7 +68,9 @@
               class="flex justify-end px-3 space-x-4 border border-indigo-500 rounded-md"
             >
               <span> Total Questions: </span>
-              <h3 class="text-lg font-semibold text-orange-500">10</h3>
+              <h3 class="text-lg font-semibold text-orange-500">
+                {{ userSurvey.surveyData.length }}
+              </h3>
             </div>
           </h3>
 
@@ -77,7 +79,8 @@
           >
             <li
               class="mb-4 text-lg"
-              v-for="(quest, index) in userSurvey.surveyData"
+              v-if="surveyData"
+              v-for="(quest, index) in surveyData"
               :key="index"
             >
               <h3 class="font-semibold text-gray-900">
@@ -127,6 +130,10 @@ watchEffect(() => {
 })
 
 const surveyData = computed(() => {
-  return userSurvey.surveyData.splice(0, userSurvey.surveyData.length - 1)
+  let index = userSurvey.value.surveyData.findIndex(
+    (survey) => survey.question_id === 0
+  )
+
+  return userSurvey.value.surveyData.splice(index, 1)
 })
 </script>
