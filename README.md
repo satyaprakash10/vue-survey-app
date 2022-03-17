@@ -1,7 +1,21 @@
-# Vue 3 + Vite
+# Vue 3 + Vite + Tailwind css
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+ 
+## Project setup
 
-## Recommended IDE Setup
+1. Clone repo link Url
+2. npm install
+3. npm run dev
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+
+## Project Summary:
+- This project is a todo and task managenent app based on individiual user
+- You can create mulitiple users with edit and deletion functionality 
+- you can also create a detail todo with all edit and delete functionality.
+- In order to track and manage the task you can also create a from the Board feature and manage the task functionality which is similar to KANBAN board draggable from one state to another.(WIP)
+
+## Stack and framework which are used in the app development:
+1. Vue and Vite(vue3)
+2. Tailwind Css UI framework
+3. Pinia for state management
+
