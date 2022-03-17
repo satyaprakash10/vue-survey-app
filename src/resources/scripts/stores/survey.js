@@ -17,17 +17,18 @@ export const useSurveyStore = defineStore({
 
     fetchAllSurveys() {
       this.surveys = JSON.parse(Ls.get('surveys'))
+      console.log('surveys =>', this.surveys)
     },
 
     fetchSurvey(id) {
       const survey = this.surveys.find((survey) => survey.survey_id === id)
+      console.log('survey id =>', survey)
       this.currentSurvey = survey
     },
 
     addSurvey(data) {
       if (data) {
-        this.surveys.push(data)
-
+        this?.surveys?.push(data)
         Ls.set('surveys', JSON.stringify(this.surveys))
       }
     },

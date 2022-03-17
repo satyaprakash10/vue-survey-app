@@ -43,7 +43,6 @@
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
-                v-if="surveyStore.userSurveys.length"
                 class="font-serif text-lg font-bold text-gray-900 sm:text-3xl lg:text-4xl"
               >
                 {{ surveyStore.userSurveys.length }}
@@ -74,7 +73,6 @@
           <div class="flex items-center justify-between">
             <div class="px-4">
               <h1
-                v-if="surveyStore.surveys.length"
                 class="font-serif text-lg font-bold text-gray-900 hover:text-gray-700 sm:text-3xl lg:text-4xl"
               >
                 {{ surveyStore.surveys.length }}

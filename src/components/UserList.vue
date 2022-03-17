@@ -66,7 +66,7 @@ const userStore = useUserStore()
 
 userStore.fetchAllUsers()
 
-// const users = computed(() => {
-//   return userStore.users
-// })
+const users = computed(() => {
+  return userStore.users.splice(0, 6)
+})
 </script>

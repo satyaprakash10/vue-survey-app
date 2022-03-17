@@ -85,6 +85,27 @@
         </div>
       </div>
 
+      <!-- Total Surveys Analysis  -->
+      <!-- <div class="flex items-center justify-between mx-auto mt-6 max-7-xl">
+          <h1 class="text-sm font-normal text-gray-900 sm:text-lg">
+            Total Surveys:
+            <span class="text-sm font-semibold sm:text-lg">
+              {{ surveyStore.surveys.length }}
+            </span>
+            out of
+            <span class="text-sm font-semibold sm:text-lg">
+              {{ surveyStore.surveys.length }}
+            </span>
+          </h1>
+
+          <TrashIcon
+            @click="deleteAllSurveys"
+            class="w-8 h-8 cursor-pointer hover:text-indigo-600"
+          />
+        </div> -->
+
+      <hr class="mt-6" />
+
       <!-- Surveys Table Lists -->
       <div class="mt-8 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -300,6 +321,10 @@ surveyStore.fetchAllSurveys()
 
 function removeSurvey(id) {
   surveyStore.deleteSurvey(id)
+}
+
+function deleteAllSurveys(index) {
+  surveyStore.surveys.splice(index, 1)
 }
 </script>
 

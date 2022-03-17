@@ -367,8 +367,6 @@ function submitSurveyData() {
     survey_name: survey_name.value,
     questions: questions,
   }
-
-  console.log('surveyData =>', surveyData)
   isSaving.value = true
   if (route.params.id) {
     surveyStore.updateSurvey(surveyData)

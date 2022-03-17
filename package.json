@@ -19,12 +19,8 @@
     "vue": "^3.2.25",
     "vue-draggable-next": "^2.1.1",
     "vue-dynamic-forms": "^1.1.0",
-    "vue-feather-icons": "^5.1.0",
     "vue-route-middleware": "^1.0.7",
-    "vue-router": "^4.0.12",
-    "vue3-draggable": "^2.0.9",
-    "vue3-form-render-vuedraggable": "^4.0.1-beta.1",
-    "vuedraggable": "^2.24.3"
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

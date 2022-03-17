@@ -79,8 +79,8 @@
           >
             <li
               class="mb-4 text-lg"
-              v-if="surveyData"
-              v-for="(quest, index) in surveyData"
+              v-if="userSurvey.surveyData"
+              v-for="(quest, index) in userSurvey.surveyData"
               :key="index"
             >
               <h3 class="font-semibold text-gray-900">
@@ -130,10 +130,6 @@ watchEffect(() => {
 })
 
 const surveyData = computed(() => {
-  let index = userSurvey.value.surveyData.findIndex(
-    (survey) => survey.question_id === 0
-  )
-
-  return userSurvey.value.surveyData.splice(index, 1)
+  return userSurvey.value.surveyData.slice(0)
 })
 </script>
