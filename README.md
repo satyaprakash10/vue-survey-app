@@ -19,3 +19,7 @@
 2. Tailwind Css UI framework
 3. Pinia for state management
 
+
+## Login Credential:
+ UserName: admin@gmail.com 
+ Password: admin
