@@ -9,6 +9,8 @@
 
 
 ## Project Summary:
+- Demo Menu will work for displaying the list of tables data in the demo screen along with filter data functionality.
+- All the coding and logic has been developed in local storage.
 - This project is a todo and task managenent app based on individiual user
 - You can create mulitiple users with edit and deletion functionality 
 - you can also create a detail todo with all edit and delete functionality.
