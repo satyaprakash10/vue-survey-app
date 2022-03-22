@@ -3,8 +3,15 @@ import { createWebHistory, createRouter } from 'vue-router'
 // Auth
 import Login from './resources/views/Login.vue'
 
+// Demo
+import Demo from './components/Demo.vue'
 // Admin Side
+
+// Board
 import Board from './resources/views/Board.vue'
+
+// Dashboard
+import Dashboard from './resources/views/Dashboard.vue'
 
 // Views Page
 import SurveyIndex from './resources/views/admin/surveys/SurveyIndex.vue'
@@ -32,7 +39,21 @@ const routes = [
     component: Login,
   },
 
+  // Demo
+  {
+    path: '/demo',
+    name: 'demo',
+    component: Demo,
+  },
+
   // Admin section
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard,
+  },
+
+  // board
   {
     path: '/board',
     name: 'board',

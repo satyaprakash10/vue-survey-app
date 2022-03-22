@@ -10,6 +10,8 @@
       v-if="$route.name !== 'login'"
     />
 
+    <!-- <Demo /> -->
+
     <!-- Main -->
     <div class="relative mt-28">
       <router-view />
@@ -20,6 +22,7 @@
 <script setup>
 import { ref } from 'vue'
 import TheSiteHeader from './components/TheSiteHeader.vue'
+import Demo from './components/Demo.vue'
 import NotificationRoot from './components/base/notifications/NotificationRoot.vue'
 
 let open = ref(false)

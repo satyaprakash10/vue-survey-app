@@ -93,7 +93,7 @@ const authStore = useAuthStore()
 function submitLoginData() {
   try {
     if (loginData.email === 'admin@gmail.com') {
-      router.push('/board')
+      router.push('/demo')
       Ls.set('isAdmin', JSON.stringify(true))
     } else {
       router.push('/user/dashboard')

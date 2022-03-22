@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="px-6 py-4 mx-auto mt-12 max-w-7xl">
+    <div class="px-6 py-4 mx-auto mt-12">
       <!-- Breadcrumb -->
       <div class="flex items-center justify-between">
         <nav class="" aria-label="Breadcrumb">
@@ -181,7 +181,7 @@
                   <th class="p-3 px-4 text-left">Profile</th>
                   <th class="p-3 text-left">ID</th>
                   <th class="p-3 text-left">Label</th>
-                  <th class="p-3 text-left">Description</th>
+                  <!-- <th class="p-3 text-left">Description</th> -->
                   <th class="p-3 text-left">Categories</th>
                   <th class="p-3 text-left">Status</th>
                   <th class="p-3 text-center">Action</th>
@@ -226,7 +226,7 @@
                     </div>
                   </td>
 
-                  <td class="p-3">
+                  <td class="p-3 ml-4">
                     {{ todo.id }}
                   </td>
                   <td
@@ -235,9 +235,9 @@
                   >
                     {{ todo.name }}
                   </td>
-                  <td class="max-w-sm p-3 font-bold truncate">
+                  <!-- <td class="max-w-sm p-3 font-bold truncate">
                     {{ todo.description }}
-                  </td>
+                  </td> -->
                   <td class="items-center p-3 space-x-2 truncate lg:flex-none">
                     <span
                       v-for="(cat, index) in todo.category"

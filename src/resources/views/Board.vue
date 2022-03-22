@@ -315,14 +315,17 @@
           </draggable>
         </div>
       </div>
+
+      <!-- Chat Bot demo -->
+      <!-- <ChatBot /> -->
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
+// import ChatBot from '../../components/ChatBot.vue'
 import Multiselect from '@vueform/multiselect'
 import {
   CheckCircleIcon,
@@ -331,7 +334,6 @@ import {
   SaveIcon,
   PlusIcon,
 } from '@heroicons/vue/solid'
-import { ref, reactive, computed } from 'vue'
 import { mapActions } from 'pinia'
 import { mapState } from 'pinia'
 import { useTodoStore } from '../scripts/stores/todo'
@@ -345,6 +347,7 @@ export default {
   components: {
     draggable: VueDraggableNext,
     CheckCircleIcon,
+    // ChatBot,
     Multiselect,
     HomeIcon,
     XIcon,

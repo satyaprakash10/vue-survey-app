@@ -22,14 +22,14 @@
           class="flex items-center justify-center flex-shrink-0 hidden mt-6 transition-all duration-100 transform border-b-2 border-blue-500 sm:block lg:justify-start rounded-b-md hover:border-none"
         >
           <a
-            href="/board"
+            href="/demo"
             class="text-base italic font-bold text-blue-500 lg:text-4xl"
           >
             Vue
             <span
               class="ml-3 font-serif text-base font-semibold text-white sm:text-2xl"
             >
-              Todo App
+              DEMO
             </span>
           </a>
         </div>
@@ -43,14 +43,14 @@
             class="flex items-center justify-center flex-shrink-0 transition-all duration-100 transform border-b-2 border-blue-500 sm:hidden lg:justify-start rounded-b-md hover:border-none"
           >
             <a
-              href="#"
+              href="/demo"
               class="text-base italic font-bold text-blue-500 lg:text-4xl"
             >
               Vue
               <span
                 class="ml-3 font-serif text-base font-semibold text-gray-600 sm:text-xl"
               >
-                Survey
+                Demo
               </span>
             </a>
           </div>
@@ -59,6 +59,12 @@
           <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
             <!-- Admin side -->
             <!-- v-if="isAdmin" -->
+            <router-link
+              to="/Demo"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
+            >
+              Demo
+            </router-link>
             <router-link
               to="/board"
               class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
@@ -78,7 +84,7 @@
               to="/users"
               class="inline-flex items-center px-1 pt-1 text-sm font-medium text-white border-transparent hover:text-indigo-500 hover:font-semibold"
             >
-              Users
+              <!-- Users -->
             </router-link>
 
             <!-- <router-link
@@ -165,7 +171,7 @@
           href="/board"
           class="block py-2 pl-3 pr-4 text-base font-medium text-indigo-700 border-l-4 border-indigo-500 bg-indigo-50"
         >
-          Board
+          <!-- Board -->
         </DisclosureButton>
         <!-- <DisclosureButton
           v-if="isAdmin"
@@ -178,10 +184,10 @@
         <DisclosureButton
           v-if="isAdmin"
           as="a"
-          href="/users"
+          href="/demo"
           class="block py-2 pl-3 pr-4 text-base font-medium text-white border-l-4 border-transparent hover:bg-gray-50 hover:text-gray-700"
         >
-          Users
+          Demo
         </DisclosureButton>
         <DisclosureButton
           v-if="isAdmin"

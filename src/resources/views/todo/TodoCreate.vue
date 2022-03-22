@@ -328,7 +328,7 @@
 <script setup>
 import BaseTable from '../../../components/base/BaseTable.vue'
 import { reactive, ref, computed, watch } from 'vue'
-import useVuelidate from '@vuelidate/core'
+// import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
 import { useTodoStore } from '../../scripts/stores/todo'
 import { useNotificationStore } from '../../scripts/stores/notification'

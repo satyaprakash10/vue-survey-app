@@ -194,7 +194,7 @@
 import { HomeIcon, PlusIcon, TrashIcon, PencilIcon } from '@heroicons/vue/solid'
 import { useSurveyStore } from '../../../scripts/stores/survey'
 import BaseTaskCard from '../../../../components/base/BaseTaskCard.vue'
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 
 import { reactive } from 'vue'
 
